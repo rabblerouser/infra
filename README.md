@@ -2,24 +2,6 @@
 
 Code for spinning up Rabble Rouser infrastructure and provisioning the app.
 
-## A work in progress!
-
-*This code does work - it can create infrastructure from scratch and install you a Rabble Rouser - but it still needs
-some love before it's ready for prime time. Here are some things:*
-
-1. Figure out how to hide secrets from log files. At the moment they'll be there in plaintext. This is especially a problem
-if the deploy is running from a public-facing CI pipeline (e.g. snap)
-2. Simplify down the DB variables that are set for the ansible run. (There's probably a bit that can be done here to
-simplify our config variable management in general.)
-3. Document how to run somewhere like a CI pipeline where you might not be able to have a static file on the file system.
- i.e. how to do it with environment variables instead.
-4. Seed/bootstrap the database so that the app is ready for use immediately.
-5. Productionisationising:
-  - DB backups ets
-  - Logging, monitoring, alerts, etc
-  - Proper VPC stuff for the securiteez
-6. *For version 2:* automate more of the tooling/first time setup process, so the whole thing is easier to use.
-
 ## First-time setup
 
 Right now this is not suitable for end users to be running on their own. You probably need to be at least semi-technical
@@ -112,4 +94,15 @@ Warning: this... well it will destroy all your infrastructure!
 
 ```sh
 terraform destroy
+```
+
+## Running it without a tfvars config file
+
+If using a file is inconvenient (e.g. when running in a CI pipeline), you can use CLI flags or environment variables
+instead (see the [terraform docs](https://www.terraform.io/intro/getting-started/variables.html) for more detail):
+
+```sh
+terraform apply -var 'route53_zone_id="ABC123"'
+# OR
+TF_VAR_route53_zone_id="ABC123" terraform apply
 ```
