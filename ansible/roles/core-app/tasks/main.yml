@@ -22,9 +22,6 @@
 - name: upload init script
   template: src=core-app_init.j2 dest=/etc/init.d/rabble-rouser-core mode=0755
 
-- name: upload db.json
-  template: src=db.json.j2 dest="{{ app_path }}/backend/config/db.json" mode=0600
-
 - name: install npm dependencies
   become_user: "{{ app_user }}"
   command: npm install --production chdir="{{ app_path }}"

@@ -19,13 +19,8 @@ resource "null_resource" "provisioner" {
       DOMAIN='${var.domain}' \\
       CERT_EMAIL='${var.tls_cert_email}' \\
       APP_GIT_SHA='${var.app_git_sha}' \\
+      DATABASE_URL='postgres://${aws_db_instance.db.username}:${aws_db_instance.db.password}@${aws_db_instance.db.address}:${aws_db_instance.db.port}/${aws_db_instance.db.name}' \\
       SESSION_SECRET='${var.session_secret}' \\
-      \\
-      DB_NAME='${aws_db_instance.db.name}' \\
-      DB_USER='${aws_db_instance.db.username}' \\
-      DB_PASSWORD='${aws_db_instance.db.password}' \\
-      DB_HOST='${aws_db_instance.db.address}' \\
-      DB_PORT='${aws_db_instance.db.port}' \\
       \\
       ansible-playbook -i ${aws_eip.eip.public_ip}, -u ubuntu --private-key='${var.private_key_path}' ../ansible/main.yml -v
     "
