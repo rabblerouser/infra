@@ -24,7 +24,7 @@ for these instructions to make sense.
 7. Create an S3 bucket to store the [terraform state file](https://www.terraform.io/docs/state/) in (see notes below):
 
     ```sh
-    aws s3api create-bucket --bucket my-rabblerouser-tf-state --region us-east-1 --acl private
+    aws s3api create-bucket --bucket my-rabblerouser-tf-state --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1 --acl private
     ```
 
 8. Configure terraform to use the bucket:
@@ -55,10 +55,10 @@ Notes on the S3 bucket:
 
     # These variables have no default values and must be supplied
     route53_zone_id = "ABC123"
-    domain = "rabblerouser.example.com."
+    domain = "rabblerouser.example.com"
     tls_cert_email = "webmaster@rabblerouser.team"
-    session_secret = "something long and random"
-    db_password = "something long and random"
+    session_secret = "something long and random without special chars"
+    db_password = "something long and random without special chars"
 
     # These lines may be removed if you're happy with the defaults shown here
     app_git_sha = "HEAD"

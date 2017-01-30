@@ -5,7 +5,8 @@ variable "route53_zone_id" {
 
 variable "domain" {
   description = "The domain where you want your Rabble Rouser instance to live. Must be valid for the host zone where it
-  will be created. E.g. if the hosted zone is example.com, then this variable might be set to 'rabblerouser.example.com.'."
+  will be created. E.g. if the hosted zone is example.com, then this variable might be set to 'rabblerouser.example.com'.
+  Do not include a trailing period on the end of the domain name."
   type = "string"
 }
 
@@ -15,12 +16,12 @@ variable "tls_cert_email" {
 }
 
 variable "session_secret" {
-  description = "A random token with which to encrypt user sessions"
+  description = "A random token with which to encrypt user sessions. Do not include special characters."
   type = "string"
 }
 
 variable "db_password" {
-  description = "Password for the app to access its RDS database"
+  description = "Password for the app to access its RDS database. Do not include special characters."
   type = "string"
 }
 
