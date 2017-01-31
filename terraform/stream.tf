@@ -9,10 +9,16 @@ resource "aws_lambda_event_source_mapping" "stream_to_lambda" {
   starting_position = "TRIM_HORIZON" # This means 'start at the oldest event in the stream'
 }
 
+data "aws_s3_bucket_object" "stream_forwarder_bucket" {
+  bucket = "rabblerouser-artefacts"
+  key = "lambdas/stream_listener/rabblerouser_stream_listener_lambda.zip"
+  # Defaults to latest version
+}
+
 resource "aws_lambda_function" "stream_forwarder" {
-  s3_bucket = "rabblerouser-artefacts"
-  s3_key = "lambdas/stream_listener/rabblerouser_stream_listener_lambda.zip"
-  s3_object_version = "QPE3fnJov63m.wGgC3.prMpy6we_CAkP"
+  s3_bucket = "${data.aws_s3_bucket_object.stream_forwarder_bucket.bucket}"
+  s3_key = "${data.aws_s3_bucket_object.stream_forwarder_bucket.key}"
+  s3_object_version = "${data.aws_s3_bucket_object.stream_forwarder_bucket.version_id}"
   function_name = "rabblerouser_stream_forwarder"
   handler = "forwarder/handler.broadcast"
   role = "${aws_iam_role.stream_forwarder_role.arn}"
