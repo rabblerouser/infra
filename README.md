@@ -7,7 +7,7 @@ Code for spinning up Rabble Rouser infrastructure and provisioning the app.
 Right now this is not suitable for end users to be running on their own. You probably need to be at least semi-technical
 for these instructions to make sense.
 
-1. [Install Terraform](https://www.terraform.io/intro/getting-started/install.html)
+1. [Install Terraform 0.8.x](https://www.terraform.io/intro/getting-started/install.html)
 2. [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 3. [Create an AWS account](https://aws.amazon.com/)
 4. [Create an AWS API key pair](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
