@@ -6,8 +6,8 @@ resource "aws_iam_access_key" "rabblerouser_core_keys" {
   user = "${aws_iam_user.rabblerouser_core.name}"
 }
 
-resource "aws_iam_user_policy" "rabblerouser_core_kinesis" {
-  name = "rabblerouser_core_kinesis"
+resource "aws_iam_user_policy" "put_record_to_rabblerouser_stream" {
+  name = "put_record_to_rabblerouser_stream"
   user = "${aws_iam_user.rabblerouser_core.name}"
   policy = <<EOF
 {
