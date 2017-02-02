@@ -9,16 +9,26 @@ resource "aws_lambda_event_source_mapping" "stream_to_lambda" {
   starting_position = "LATEST"
 }
 
-data "aws_s3_bucket_object" "event_forwarder_bucket" {
+data "aws_s3_bucket_object" "event_forwarder_zip" {
   bucket = "rabblerouser-artefacts"
   key = "lambdas/rabblerouser_event_forwarder.zip"
   # Defaults to latest version
 }
 
+resource "random_id" "rabblerouser_core_event_forwarder_auth_token" {
+  keepers = {
+    # Generate a new token when the lambda code updates or the EC2 instance changes
+    lambda_zip_version = "${data.aws_s3_bucket_object.event_forwarder_zip.version_id}"
+  }
+
+  # With this length, it's as random as a type-4 UUID
+  byte_length = 32
+}
+
 resource "aws_lambda_function" "event_forwarder" {
-  s3_bucket = "${data.aws_s3_bucket_object.event_forwarder_bucket.bucket}"
-  s3_key = "${data.aws_s3_bucket_object.event_forwarder_bucket.key}"
-  s3_object_version = "${data.aws_s3_bucket_object.event_forwarder_bucket.version_id}"
+  s3_bucket = "${data.aws_s3_bucket_object.event_forwarder_zip.bucket}"
+  s3_key = "${data.aws_s3_bucket_object.event_forwarder_zip.key}"
+  s3_object_version = "${random_id.rabblerouser_core_event_forwarder_auth_token.keepers.lambda_zip_version}"
   function_name = "rabblerouser_event_forwarder"
   handler = "index.handler"
   role = "${aws_iam_role.event_forwarder_role.arn}"
@@ -26,6 +36,7 @@ resource "aws_lambda_function" "event_forwarder" {
   environment = {
     variables = {
       RR_CORE_EVENT_ENDPOINT = "https://${var.domain}/events"
+      EVENT_AUTH_TOKEN = "${random_id.rabblerouser_core_event_forwarder_auth_token.hex}"
     }
   }
 }

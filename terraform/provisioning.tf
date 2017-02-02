@@ -8,8 +8,11 @@ resource "null_resource" "provisioner" {
   depends_on = ["aws_route53_record.domain"]
 
   triggers {
-    # Redo this whenever a new EC2 instance is created
+    # Re-provision this whenever a new EC2 instance is created
     instance = "${aws_instance.web.id}"
+
+    # Re-provision when the event auth token changes
+    event_auth_token = "${random_id.rabblerouser_core_event_forwarder_auth_token.hex}"
   }
 
   provisioner "local-exec" {
@@ -25,6 +28,7 @@ resource "null_resource" "provisioner" {
       \
       AWS_ACCESS_KEY_ID='${aws_iam_access_key.rabblerouser_core_keys.id}' \
       AWS_SECRET_ACCESS_KEY='${aws_iam_access_key.rabblerouser_core_keys.secret}' \
+      RR_CORE_EVENT_AUTH_TOKEN='${random_id.rabblerouser_core_event_forwarder_auth_token.hex}' \
       \
       ansible-playbook -i ${aws_eip.eip.public_ip}, -u ubuntu --private-key='${var.private_key_path}' ../ansible/main.yml -v
 EOF
