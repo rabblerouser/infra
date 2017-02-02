@@ -32,3 +32,8 @@ resource "aws_db_instance" "db" {
   # This doesn't work with db.t2.micro
   # storage_encrypted = true
 }
+
+resource "aws_kinesis_stream" "rabblerouser_stream" {
+  name = "rabblerouser_stream"
+  shard_count = 1
+}
