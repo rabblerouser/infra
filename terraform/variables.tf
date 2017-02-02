@@ -8,6 +8,11 @@ variable "domain" {
   type = "string"
 }
 
+variable "email_from_address" {
+  description = "The email address from where emails should be sent"
+  type = "string"
+}
+
 variable "tls_cert_email" {
   description = "The email under which to register the TLS cert. E.g. webmaster@rabblerouser.team"
   type = "string"
@@ -23,8 +28,14 @@ variable "db_password" {
   type = "string"
 }
 
-variable "app_git_sha" {
-  description = "The commit-ish to be deployed"
+variable "core_app_git_sha" {
+  description = "The commit-ish of the core app to be deployed"
+  type = "string"
+  default = "HEAD"
+}
+
+variable "mailer_app_git_sha" {
+  description = "The commit-ish of the mailer to be deployed"
   type = "string"
   default = "HEAD"
 }

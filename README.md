@@ -36,6 +36,7 @@ for these instructions to make sense.
       -backend-config="key=terraform.tfstate" \
       -backend-config="region=us-east-1"
     ```
+9. If you want email sending to work, you need to set up SES. See the instructions in [rabblerouser-mailer](https://github.com/rabblerouser/rabblerouser-mailer) for how to do that.
 
 This will create a local file `.terraform/terraform.tfstate`, to remember where your state is stored. You can ignore
 this file, and if you lose it, you can regenerate it with the above command.
@@ -61,10 +62,14 @@ Notes on the S3 bucket:
     db_password = "something long and random without special chars"
 
     # These lines may be removed if you're happy with the defaults shown here
-    app_git_sha = "HEAD"
+    core_app_git_sha = "HEAD"
+    mailer_app_git_sha = "HEAD"
     private_key_path = "~/.ssh/id_rsa"
     public_key_path = "~/.ssh/id_rsa.pub"
     region = "us-east-1"
+
+    # You need this if you want to be able to send emails
+    email_from_address = "sender@ses-verified-domain.com"
     ```
 
 2. Do a dry run first to see what terraform will do:

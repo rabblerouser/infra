@@ -10,4 +10,16 @@
     - { role: geerlingguy.nodejs, nodejs_version: '6.x' }
     - { role: letsencrypt, cert_contact_email: "{{ lookup('env','CERT_EMAIL') }}", cert_domain: "{{ lookup('env', 'DOMAIN') }}" }
     - { role: nginx, server_name: "{{ lookup('env', 'DOMAIN') }}", https_certs_dir: "/etc/letsencrypt/live/{{ lookup('env', 'DOMAIN') }}" }
-    - { role: core-app, git_sha: "{{ lookup('env', 'APP_GIT_SHA') }}", database_url: "{{ lookup('env','DATABASE_URL') }}", session_secret:  "{{ lookup('env','SESSION_SECRET') }}", aws_access_key_id:  "{{ lookup('env','AWS_ACCESS_KEY_ID') }}", aws_secret_access_key:  "{{ lookup('env','AWS_SECRET_ACCESS_KEY') }}", event_auth_token:  "{{ lookup('env','RR_CORE_EVENT_AUTH_TOKEN') }}"}
+    - role: core-app
+      git_sha: "{{ lookup('env', 'CORE_APP_GIT_SHA') }}"
+      database_url: "{{ lookup('env','CORE_DATABASE_URL') }}"
+      session_secret:  "{{ lookup('env','CORE_SESSION_SECRET') }}"
+      aws_access_key_id:  "{{ lookup('env','CORE_AWS_ACCESS_KEY_ID') }}"
+      aws_secret_access_key:  "{{ lookup('env','CORE_AWS_SECRET_ACCESS_KEY') }}"
+      event_auth_token:  "{{ lookup('env','CORE_EVENT_AUTH_TOKEN') }}"
+    - role: mailer-app
+      git_sha: "{{ lookup('env', 'MAILER_APP_GIT_SHA') }}"
+      aws_access_key_id: "{{ lookup('env','MAILER_AWS_ACCESS_KEY_ID') }}"
+      aws_secret_access_key:  "{{ lookup('env','MAILER_AWS_SECRET_ACCESS_KEY') }}"
+      email_from_address: "{{ lookup('env', 'MAILER_EMAIL_FROM_ADDRESS') }}"
+      event_auth_token: "{{ lookup('env','MAILER_EVENT_AUTH_TOKEN') }}"

@@ -35,7 +35,7 @@ resource "aws_lambda_function" "event_forwarder" {
   runtime = "nodejs4.3"
   environment = {
     variables = {
-      RR_CORE_EVENT_ENDPOINT = "https://${var.domain}/events"
+      EVENT_ENDPOINT = "https://${var.domain}/events"
       EVENT_AUTH_TOKEN = "${random_id.rabblerouser_core_event_forwarder_auth_token.hex}"
     }
   }
