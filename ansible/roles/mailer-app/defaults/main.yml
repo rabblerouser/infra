@@ -1,6 +1,0 @@
----
-repo_url: https://github.com/rabblerouser/rabblerouser-mailer.git
-app_path: /opt/rabble-rouser-mailer
-app_user: rabble-rouser-mailer
-logs_dir: /var/log/rabble-rouser-mailer
-pids_dir: /var/run/rabble-rouser-mailer

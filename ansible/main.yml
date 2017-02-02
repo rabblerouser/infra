@@ -10,16 +10,24 @@
     - { role: geerlingguy.nodejs, nodejs_version: '6.x' }
     - { role: letsencrypt, cert_contact_email: "{{ lookup('env','CERT_EMAIL') }}", cert_domain: "{{ lookup('env', 'DOMAIN') }}" }
     - { role: nginx, server_name: "{{ lookup('env', 'DOMAIN') }}", https_certs_dir: "/etc/letsencrypt/live/{{ lookup('env', 'DOMAIN') }}" }
-    - role: core-app
+
+    - role: node-app
+      app_name: rabblerouser-core
+      repo: https://github.com/rabblerouser/rabblerouser-core.git
       git_sha: "{{ lookup('env', 'CORE_APP_GIT_SHA') }}"
-      database_url: "{{ lookup('env','CORE_DATABASE_URL') }}"
-      session_secret:  "{{ lookup('env','CORE_SESSION_SECRET') }}"
-      aws_access_key_id:  "{{ lookup('env','CORE_AWS_ACCESS_KEY_ID') }}"
-      aws_secret_access_key:  "{{ lookup('env','CORE_AWS_SECRET_ACCESS_KEY') }}"
-      event_auth_token:  "{{ lookup('env','CORE_EVENT_AUTH_TOKEN') }}"
-    - role: mailer-app
+      env_vars:
+        - "AWS_ACCESS_KEY_ID={{ lookup('env','CORE_AWS_ACCESS_KEY_ID') }}"
+        - "AWS_SECRET_ACCESS_KEY={{ lookup('env','CORE_AWS_SECRET_ACCESS_KEY') }}"
+        - "EVENT_AUTH_TOKEN={{ lookup('env','CORE_EVENT_AUTH_TOKEN') }}"
+        - "DATABASE_URL={{ lookup('env','CORE_DATABASE_URL') }}"
+        - "SESSION_SECRET={{ lookup('env','CORE_SESSION_SECRET') }}"
+
+    - role: node-app
+      app_name: rabblerouser-mailer
+      repo: https://github.com/rabblerouser/rabblerouser-mailer.git
       git_sha: "{{ lookup('env', 'MAILER_APP_GIT_SHA') }}"
-      aws_access_key_id: "{{ lookup('env','MAILER_AWS_ACCESS_KEY_ID') }}"
-      aws_secret_access_key:  "{{ lookup('env','MAILER_AWS_SECRET_ACCESS_KEY') }}"
-      email_from_address: "{{ lookup('env', 'MAILER_EMAIL_FROM_ADDRESS') }}"
-      event_auth_token: "{{ lookup('env','MAILER_EVENT_AUTH_TOKEN') }}"
+      env_vars:
+        - "AWS_ACCESS_KEY_ID={{ lookup('env','MAILER_AWS_ACCESS_KEY_ID') }}"
+        - "AWS_SECRET_ACCESS_KEY={{ lookup('env','MAILER_AWS_SECRET_ACCESS_KEY') }}"
+        - "EVENT_AUTH_TOKEN={{ lookup('env','MAILER_EVENT_AUTH_TOKEN') }}"
+        - "EMAIL_FROM_ADDRESS={{ lookup('env', 'MAILER_EMAIL_FROM_ADDRESS') }}"

@@ -1,6 +1,0 @@
----
-repo_url: https://github.com/rabblerouser/rabblerouser-core.git
-app_path: /opt/rabble-rouser-core
-app_user: rabble-rouser
-logs_dir: /var/log/rabble-rouser-core
-pids_dir: /var/run/rabble-rouser-core
