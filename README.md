@@ -48,27 +48,9 @@ Notes on the S3 bucket:
 
 ## Create all your infrastructure
 
-1. Create a file `terraform.tfvars` to store your project-specific config in locally, with contents similar to the below.
- See `variables.tf` for descriptions of what these variables are.
-
-    ```tfvars
-    # This file will contain secrets, so never check it in to source control, and never share it with untrusted people!
-
-    # These variables have no default values and must be supplied
-    route53_zone_id = "ABC123"
-    domain = "rabblerouser.example.com"
-    tls_cert_email = "webmaster@rabblerouser.team"
-
-    # These lines may be removed if you're happy with the defaults shown here
-    core_app_git_sha = "HEAD"
-    mailer_app_git_sha = "HEAD"
-    private_key_path = "~/.ssh/id_rsa"
-    public_key_path = "~/.ssh/id_rsa.pub"
-    region = "ap-southeast-2"
-
-    # You need this if you want to be able to send emails
-    email_from_address = "sender@ses-verified-domain.com"
-    ```
+1. Edit the file `terraform.tfvars` so that it references the Rabble Rouser instance you want to manage. The values that
+are in there by default are specific for the project's staging instance at https://demo.rr-staging.click. You can also
+override any of the variables in `variables.tf` if you don't like their default values.
 
 2. Do a dry run first to see what terraform will do:
 
