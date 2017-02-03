@@ -18,16 +18,6 @@ variable "tls_cert_email" {
   type = "string"
 }
 
-variable "session_secret" {
-  description = "A random token with which to encrypt user sessions. Do not include special characters."
-  type = "string"
-}
-
-variable "db_password" {
-  description = "Password for the app to access its RDS database. Do not include special characters."
-  type = "string"
-}
-
 variable "core_app_git_sha" {
   description = "The commit-ish of the core app to be deployed"
   type = "string"
@@ -52,7 +42,7 @@ variable "public_key_path" {
 
 variable "region" {
   description = "The AWS region to create all the infrastructure in"
-  default = "us-east-1"
+  default = "ap-southeast-2"
 }
 
 variable "ubuntu" {

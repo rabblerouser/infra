@@ -58,15 +58,13 @@ Notes on the S3 bucket:
     route53_zone_id = "ABC123"
     domain = "rabblerouser.example.com"
     tls_cert_email = "webmaster@rabblerouser.team"
-    session_secret = "something long and random without special chars"
-    db_password = "something long and random without special chars"
 
     # These lines may be removed if you're happy with the defaults shown here
     core_app_git_sha = "HEAD"
     mailer_app_git_sha = "HEAD"
     private_key_path = "~/.ssh/id_rsa"
     public_key_path = "~/.ssh/id_rsa.pub"
-    region = "us-east-1"
+    region = "ap-southeast-2"
 
     # You need this if you want to be able to send emails
     email_from_address = "sender@ses-verified-domain.com"

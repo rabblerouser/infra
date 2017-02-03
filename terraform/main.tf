@@ -13,6 +13,14 @@ resource "aws_instance" "web" {
   }
 }
 
+resource "random_id" "core_db_password" {
+  keepers = {
+    # Generate a new password when building a new EC2 instance
+    ec2_instance_id = "${aws_instance.web.id}"
+  }
+  byte_length = 32
+}
+
 resource "aws_db_instance" "db" {
   instance_class = "db.t2.micro"
   allocated_storage = 20
@@ -24,7 +32,7 @@ resource "aws_db_instance" "db" {
 
   name = "rabble_rouser"
   username = "rabble_rouser"
-  password = "${var.db_password}"
+  password = "${random_id.core_db_password.hex}"
   port = 5432
 
   vpc_security_group_ids = ["${aws_security_group.rds.id}"]

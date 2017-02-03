@@ -3,6 +3,14 @@ resource "aws_key_pair" "ansible" {
   public_key = "${file(var.public_key_path)}"
 }
 
+resource "random_id" "session_secret" {
+  keepers = {
+    # Generate a new session secret when building a new EC2 instance
+    ec2_instance_id = "${aws_instance.web.id}"
+  }
+  byte_length = 32
+}
+
 resource "null_resource" "provisioner" {
   # Only do this after the DNS record has been created
   depends_on = ["aws_route53_record.domain"]
@@ -14,6 +22,7 @@ resource "null_resource" "provisioner" {
     # Re-provision when any event auth token changes
     core_event_auth_token = "${module.core_event_forwarder.auth_token}"
     mailer_event_auth_token = "${module.mailer_event_forwarder.auth_token}"
+    session_secret = "${random_id.session_secret.hex}"
   }
 
   provisioner "local-exec" {
@@ -28,7 +37,7 @@ resource "null_resource" "provisioner" {
       CORE_AWS_SECRET_ACCESS_KEY='${aws_iam_access_key.core.secret}' \
       CORE_EVENT_AUTH_TOKEN='${module.core_event_forwarder.auth_token}' \
       CORE_DATABASE_URL='postgres://${aws_db_instance.db.username}:${aws_db_instance.db.password}@${aws_db_instance.db.address}:${aws_db_instance.db.port}/${aws_db_instance.db.name}' \
-      CORE_SESSION_SECRET='${var.session_secret}' \
+      CORE_SESSION_SECRET='${random_id.session_secret.hex}' \
       \
       MAILER_APP_GIT_SHA='${var.mailer_app_git_sha}' \
       MAILER_AWS_ACCESS_KEY_ID='${aws_iam_access_key.mailer.id}' \
