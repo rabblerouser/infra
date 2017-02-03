@@ -2,6 +2,10 @@ resource "aws_lambda_event_source_mapping" "stream_to_lambda" {
   event_source_arn = "${var.stream_arn}"
   function_name = "${aws_lambda_function.event_forwarder.arn}"
   starting_position = "LATEST"
+
+  # This is to prevent batches that half-succeed, which could cause events to be missed, or double-handled
+  # This is an anti-pattern - ideally we could have some events succeed, and retry just the failed ones
+  batch_size = 1
 }
 
 data "aws_s3_bucket_object" "event_forwarder_zip" {
