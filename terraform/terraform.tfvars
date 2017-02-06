@@ -5,4 +5,4 @@ domain = "demo.rr-staging.click"
 email_from_address = "admin@rr-staging.click"
 
 # Currently deploying branch 112-create-members-with-events
-core_app_git_sha = "d902e4bff3c942cefdc0222b9c31011407ee8563"
+core_app_git_sha = "d61d25f27a3975e71e2b2d023af6fcbf04c4156a"
