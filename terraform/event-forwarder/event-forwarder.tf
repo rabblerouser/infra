@@ -1,3 +1,5 @@
+# This is a module because there will be many of these forwarders - one for each service that consumes the stream.
+
 resource "aws_lambda_event_source_mapping" "stream_to_lambda" {
   event_source_arn = "${var.stream_arn}"
   function_name = "${aws_lambda_function.event_forwarder.arn}"
