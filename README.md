@@ -8,6 +8,8 @@ Right now this is not suitable for end users to be running on their own. You pro
 for these instructions to make sense.
 
 1. [Install Terraform 0.8.x](https://www.terraform.io/intro/getting-started/install.html)
+OR
+`brew install terraform`
 2. [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 3. [Create an AWS account](https://aws.amazon.com/)
 4. [Create an AWS API key pair](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
@@ -19,26 +21,28 @@ for these instructions to make sense.
     aws_secret_access_key=abc123abc123abc123+abc123abc123
     ```
 
-6. Create a Route53 hosted zone for the parent domain of where your Rabble Rouser will live. E.g., if you are going to
+6. **Note: This is only necessary for a brand new environment.** Create a Route53 hosted zone for the parent domain of where your Rabble Rouser will live. E.g., if you are going to
  deploy it at rabblerouser.example.com, then you'll need to have a Route53 hosted zone already created for example.com.
-7. Create an S3 bucket to store the [terraform state file](https://www.terraform.io/docs/state/) in (see notes below):
+7. **Note: This is only necessary for a brand new environment.** Create an S3 bucket to store the [terraform state file](https://www.terraform.io/docs/state/) in (see notes below):
 
     ```sh
-    aws s3api create-bucket --bucket my-rabblerouser-tf-state --region us-east-1 --create-bucket-configuration LocationConstraint=us-east-1 --acl private
+    aws s3api create-bucket --bucket example-bucket-tf-state --region ap-southeast-2 --create-bucket-configuration LocationConstraint=ap-southeast-2 --acl private
     ```
 
-8. Configure terraform to use the bucket:
+8. Go into the `terraform/` directory. From there, configure terraform to use the bucket:
 
     ```sh
     terraform remote config \
       -backend=s3 \
-      -backend-config="bucket=my-rabblerouser-tf-state" \
+      -backend-config="bucket=example-bucket-tf-state" \
       -backend-config="key=terraform.tfstate" \
-      -backend-config="region=us-east-1"
+      -backend-config="region=ap-southeast-2"
     ```
-9. If you want email sending to work, you need to set up SES. See the instructions in [rabblerouser-mailer](https://github.com/rabblerouser/rabblerouser-mailer) for how to do that.
+9. **Note: This is only necessary for a brand new environment.** If you want email sending to work, you need to set up SES. See the instructions in [rabblerouser-mailer](https://github.com/rabblerouser/rabblerouser-mailer) for how to do that.
 
-This will create a local file `.terraform/terraform.tfstate`, to remember where your state is stored. You can ignore
+## What did that just do?
+
+This whole process will create a local file `.terraform/terraform.tfstate`, to remember where your state is stored. You can ignore
 this file, and if you lose it, you can regenerate it with the above command.
 
 Notes on the S3 bucket:
@@ -71,14 +75,6 @@ You might want to do this because the ansible code has changed, or to deploy the
 ```sh
 terraform taint null_resource.provisioner
 terraform apply
-```
-
-## Destroy all your infrastructure
-
-Warning: this... well it will destroy all your infrastructure!
-
-```sh
-terraform destroy
 ```
 
 ## Running it without a tfvars config file
