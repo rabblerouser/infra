@@ -29,5 +29,5 @@
       env_vars:
         - "AWS_ACCESS_KEY_ID={{ lookup('env','MAILER_AWS_ACCESS_KEY_ID') }}"
         - "AWS_SECRET_ACCESS_KEY={{ lookup('env','MAILER_AWS_SECRET_ACCESS_KEY') }}"
-        - "EVENT_AUTH_TOKEN={{ lookup('env','MAILER_EVENT_AUTH_TOKEN') }}"
+        - "LISTENER_AUTH_TOKEN={{ lookup('env','MAILER_LISTENER_AUTH_TOKEN') }}"
         - "EMAIL_FROM_ADDRESS={{ lookup('env', 'MAILER_EMAIL_FROM_ADDRESS') }}"

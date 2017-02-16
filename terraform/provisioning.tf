@@ -42,7 +42,7 @@ resource "null_resource" "provisioner" {
       MAILER_APP_GIT_SHA='${var.mailer_app_git_sha}' \
       MAILER_AWS_ACCESS_KEY_ID='${aws_iam_access_key.mailer.id}' \
       MAILER_AWS_SECRET_ACCESS_KEY='${aws_iam_access_key.mailer.secret}' \
-      MAILER_EVENT_AUTH_TOKEN='${module.mailer_event_forwarder.auth_token}' \
+      MAILER_LISTENER_AUTH_TOKEN='${module.mailer_event_forwarder.auth_token}' \
       MAILER_EMAIL_FROM_ADDRESS='${var.email_from_address}' \
       \
       ansible-playbook -i ${aws_eip.eip.public_ip}, -u ubuntu --private-key='${var.private_key_path}' ../ansible/main.yml -v
