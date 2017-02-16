@@ -40,8 +40,8 @@ resource "aws_lambda_function" "event_forwarder" {
   runtime = "nodejs4.3"
   environment = {
     variables = {
-      EVENT_ENDPOINT = "${var.forward_to}"
-      EVENT_AUTH_TOKEN = "${random_id.auth_token.hex}"
+      LISTENER_ENDPOINT = "${var.forward_to}"
+      LISTENER_AUTH_TOKEN = "${random_id.auth_token.hex}"
     }
   }
 }
