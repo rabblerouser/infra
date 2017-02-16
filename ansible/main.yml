@@ -18,7 +18,7 @@
       env_vars:
         - "AWS_ACCESS_KEY_ID={{ lookup('env','CORE_AWS_ACCESS_KEY_ID') }}"
         - "AWS_SECRET_ACCESS_KEY={{ lookup('env','CORE_AWS_SECRET_ACCESS_KEY') }}"
-        - "EVENT_AUTH_TOKEN={{ lookup('env','CORE_EVENT_AUTH_TOKEN') }}"
+        - "LISTENER_AUTH_TOKEN={{ lookup('env','CORE_LISTENER_AUTH_TOKEN') }}"
         - "DATABASE_URL={{ lookup('env','CORE_DATABASE_URL') }}"
         - "SESSION_SECRET={{ lookup('env','CORE_SESSION_SECRET') }}"
 
