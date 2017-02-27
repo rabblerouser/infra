@@ -20,7 +20,7 @@ resource "aws_lambda_function" "event_archiver" {
   runtime = "nodejs4.3"
   environment = {
     variables = {
-      BUCKET_NAME = "${aws_s3_bucket.event_archive_bucket.id}"
+      ARCHIVE_BUCKET = "${aws_s3_bucket.event_archive_bucket.id}"
     }
   }
 }

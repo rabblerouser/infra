@@ -45,6 +45,8 @@ resource "null_resource" "provisioner" {
       MAILER_LISTENER_AUTH_TOKEN='${module.mailer_event_forwarder.auth_token}' \
       MAILER_EMAIL_FROM_ADDRESS='${var.email_from_address}' \
       \
+      ARCHIVE_BUCKET='${aws_s3_bucket.event_archive_bucket.bucket}' \
+      \
       ansible-playbook -i ${aws_eip.eip.public_ip}, -u ubuntu --private-key='${var.private_key_path}' ../ansible/main.yml -v
 EOF
   }
