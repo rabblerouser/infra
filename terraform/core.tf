@@ -27,3 +27,8 @@ resource "aws_iam_user_policy" "put_record_to_rabblerouser_stream" {
 }
 EOF
 }
+
+resource "aws_iam_user_policy_attachment" "core_bucket_policy" {
+  user = "${aws_iam_user.core.name}"
+  policy_arn = "${aws_iam_policy.archive_bucket_access.arn}"
+}
