@@ -21,6 +21,7 @@
         - "LISTENER_AUTH_TOKEN={{ lookup('env','CORE_LISTENER_AUTH_TOKEN') }}"
         - "DATABASE_URL={{ lookup('env','CORE_DATABASE_URL') }}"
         - "SESSION_SECRET={{ lookup('env','CORE_SESSION_SECRET') }}"
+        - "STREAM_NAME={{ lookup('env','STREAM_NAME') }}"
         - "ARCHIVE_BUCKET={{ lookup('env','ARCHIVE_BUCKET') }}"
 
     - role: node-app
