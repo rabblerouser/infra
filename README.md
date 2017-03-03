@@ -1,4 +1,4 @@
-# rabblerouser-infrastructure
+# Rabble Rouser Infrastructure
 
 Code for spinning up Rabble Rouser infrastructure and provisioning the app.
 
@@ -38,7 +38,7 @@ OR
       -backend-config="key=terraform.tfstate" \
       -backend-config="region=ap-southeast-2"
     ```
-9. **Note: This is only necessary for a brand new environment.** If you want email sending to work, you need to set up SES. See the instructions in [rabblerouser-mailer](https://github.com/rabblerouser/rabblerouser-mailer) for how to do that.
+9. **Note: This is only necessary for a brand new environment.** If you want email sending to work, you need to set up SES. See the instructions in [mailer](https://github.com/rabblerouser/mailer) for how to do that.
 
 ## What did that just do?
 

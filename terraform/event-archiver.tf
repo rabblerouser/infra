@@ -6,7 +6,7 @@ resource "aws_lambda_event_source_mapping" "stream_to_event_archiver" {
 
 data "aws_s3_bucket_object" "event_archiver_zip" {
   bucket = "rabblerouser-artefacts"
-  key = "lambdas/rabblerouser_event_archiver.zip"
+  key = "lambdas/event_archiver.zip"
   # Defaults to latest version
 }
 

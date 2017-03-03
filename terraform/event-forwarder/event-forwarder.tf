@@ -12,7 +12,7 @@ resource "aws_lambda_event_source_mapping" "stream_to_lambda" {
 
 data "aws_s3_bucket_object" "event_forwarder_zip" {
   bucket = "rabblerouser-artefacts"
-  key = "lambdas/rabblerouser_event_forwarder.zip"
+  key = "lambdas/event_forwarder.zip"
   # Defaults to latest version
 }
 
