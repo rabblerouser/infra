@@ -12,7 +12,7 @@
     - { role: nginx, server_name: "{{ lookup('env', 'DOMAIN') }}", https_certs_dir: "/etc/letsencrypt/live/{{ lookup('env', 'DOMAIN') }}" }
 
     - role: node-app
-      app_name: core
+      app_name: rabblerouser-core
       repo: https://github.com/rabblerouser/core.git
       git_sha: "{{ lookup('env', 'CORE_APP_GIT_SHA') }}"
       env_vars:
@@ -25,7 +25,7 @@
         - "ARCHIVE_BUCKET={{ lookup('env','ARCHIVE_BUCKET') }}"
 
     - role: node-app
-      app_name: mailer
+      app_name: rabblerouser-mailer
       repo: https://github.com/rabblerouser/mailer.git
       git_sha: "{{ lookup('env', 'MAILER_APP_GIT_SHA') }}"
       env_vars:
