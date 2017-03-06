@@ -13,7 +13,11 @@ resource "random_id" "session_secret" {
 
 resource "null_resource" "provisioner" {
   # Only do this after the DNS record has been created
-  depends_on = ["aws_route53_record.domain"]
+  depends_on = [
+    "aws_route53_record.bare_domain",
+    "aws_route53_record.core_domain",
+    "aws_route53_record.mailer_domain",
+  ]
 
   triggers {
     # Re-provision this whenever a new EC2 instance is created
@@ -29,9 +33,10 @@ resource "null_resource" "provisioner" {
     command = <<EOF
       ANSIBLE_HOST_KEY_CHECKING=False \
       \
-      DOMAIN='${var.domain}' \
+      BARE_DOMAIN='${aws_route53_record.bare_domain.fqdn}' \
       CERT_EMAIL='${var.tls_cert_email}' \
       \
+      CORE_DOMAIN='${aws_route53_record.core_domain.fqdn}' \
       CORE_APP_GIT_SHA='${var.core_app_git_sha}' \
       CORE_AWS_ACCESS_KEY_ID='${aws_iam_access_key.core.id}' \
       CORE_AWS_SECRET_ACCESS_KEY='${aws_iam_access_key.core.secret}' \
@@ -39,6 +44,7 @@ resource "null_resource" "provisioner" {
       CORE_DATABASE_URL='postgres://${aws_db_instance.db.username}:${aws_db_instance.db.password}@${aws_db_instance.db.address}:${aws_db_instance.db.port}/${aws_db_instance.db.name}' \
       CORE_SESSION_SECRET='${random_id.session_secret.hex}' \
       \
+      MAILER_DOMAIN='${aws_route53_record.mailer_domain.fqdn}' \
       MAILER_APP_GIT_SHA='${var.mailer_app_git_sha}' \
       MAILER_AWS_ACCESS_KEY_ID='${aws_iam_access_key.mailer.id}' \
       MAILER_AWS_SECRET_ACCESS_KEY='${aws_iam_access_key.mailer.secret}' \

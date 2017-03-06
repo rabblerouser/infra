@@ -1,4 +1,4 @@
-resource "aws_route53_record" "domain" {
+resource "aws_route53_record" "bare_domain" {
   # Attaching a subdomain to an existing zone
   zone_id = "${var.route53_zone_id}"
   name = "${var.domain}"
