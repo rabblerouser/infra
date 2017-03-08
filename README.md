@@ -73,8 +73,7 @@ override any of the variables in `variables.tf` if you don't like their default 
 You might want to do this because the ansible code has changed, or to deploy the latest version of the app:
 
 ```sh
-terraform taint null_resource.provisioner
-terraform apply
+./re-deploy.sh
 ```
 
 ## Running it without a tfvars config file
