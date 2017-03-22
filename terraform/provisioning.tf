@@ -54,6 +54,8 @@ resource "null_resource" "provisioner" {
       STREAM_NAME='${aws_kinesis_stream.rabblerouser_stream.name}' \
       ARCHIVE_BUCKET='${aws_s3_bucket.event_archive_bucket.bucket}' \
       \
+      SEED_DATABASE='${var.seed_database}'\
+      \
       ansible-playbook -i ${aws_eip.eip.public_ip}, -u ubuntu --private-key='${var.private_key_path}' ../ansible/main.yml -v
 EOF
   }

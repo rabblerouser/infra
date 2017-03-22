@@ -24,7 +24,16 @@
 
 - name: install npm dependencies
   become_user: "{{ app_user }}"
-  command: npm install --production chdir="{{ app_path }}"
+  command: npm install --production
+  args:
+    chdir: "{{ app_path }}"
+
+- name: run additional setup command
+  become_user: "{{ app_user }}"
+  command: "NODE_ENV=production {{ env_vars | join(" ") }} {{ setup_command }}"
+  args:
+    chdir: "{{ app_path }}"
+  when: setup_command != ""
 
 - name: re/start app
   service: name="{{ app_name }}" enabled=yes state=restarted

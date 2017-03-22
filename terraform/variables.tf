@@ -18,6 +18,12 @@ variable "email_from_address" {
   type = "string"
 }
 
+variable "seed_database" {
+  description = "Whether or not the database should be seeded with default data when the provisioner runs"
+  type = "string"
+  default = "false"
+}
+
 variable "core_app_git_sha" {
   description = "The commit-ish of the core app to be deployed"
   type = "string"

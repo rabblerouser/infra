@@ -30,6 +30,7 @@
       app_name: rabblerouser-core
       repo: https://github.com/rabblerouser/core.git
       git_sha: "{{ lookup('env', 'CORE_APP_GIT_SHA') }}"
+      setup_command: "{{ (lookup('env', 'SEED_DATABASE') == 'true') | ternary('npm run --prefix backend seed','') }}"
       env_vars:
         - "AWS_ACCESS_KEY_ID={{ lookup('env','CORE_AWS_ACCESS_KEY_ID') }}"
         - "AWS_SECRET_ACCESS_KEY={{ lookup('env','CORE_AWS_SECRET_ACCESS_KEY') }}"
@@ -43,6 +44,7 @@
       app_name: rabblerouser-mailer
       repo: https://github.com/rabblerouser/mailer.git
       git_sha: "{{ lookup('env', 'MAILER_APP_GIT_SHA') }}"
+      setup_command: ""
       env_vars:
         - "AWS_ACCESS_KEY_ID={{ lookup('env','MAILER_AWS_ACCESS_KEY_ID') }}"
         - "AWS_SECRET_ACCESS_KEY={{ lookup('env','MAILER_AWS_SECRET_ACCESS_KEY') }}"

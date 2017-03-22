@@ -76,6 +76,15 @@ You might want to do this because the ansible code has changed, or to deploy the
 ./re-deploy.sh
 ```
 
+## To seed the database
+
+Before the application can be useful, the database needs some seed data. The seed script can be run as part of the
+provisioner, but because it is not idempotent (i.e. you should only run it once), you must opt-in to it:
+
+```sh
+terraform apply -var 'seed_database=true'
+```
+
 ## Running it without a tfvars config file
 
 If using a file is inconvenient (e.g. when running in a CI pipeline), you can use CLI flags or environment variables
