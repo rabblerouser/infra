@@ -95,3 +95,9 @@ terraform apply -var 'route53_zone_id="ABC123"'
 # OR
 TF_VAR_route53_zone_id="ABC123" terraform apply
 ```
+
+## To get SSH access to the EC2 instance
+
+```sh
+./ssh.sh
+```

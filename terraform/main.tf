@@ -45,3 +45,7 @@ resource "aws_kinesis_stream" "rabblerouser_stream" {
   name = "rabblerouser_stream"
   shard_count = 1
 }
+
+output "ip" {
+  value = "${aws_eip.eip.public_ip}"
+}
