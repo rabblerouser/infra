@@ -5,4 +5,4 @@ domain = "demo.rr-staging.click"
 email_from_address = "admin@rr-staging.click"
 
 # Overrides the default value
-core_app_git_sha = "1e55cda8c991d31d4ab891515eb77970e516728f"
+core_app_git_sha = "bfde8bf0ee02953ec3fc034e53b6329f3e1d05ce"
