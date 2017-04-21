@@ -56,13 +56,38 @@ resource "aws_iam_role_policy_attachment" "event_archiver_base_policy" {
 
 resource "aws_iam_role_policy_attachment" "event_archiver_bucket_policy" {
   role = "${aws_iam_role.event_archiver_role.name}"
-  policy_arn = "${aws_iam_policy.archive_bucket_access.arn}"
+  policy_arn = "${aws_iam_policy.archive_bucket_readwrite.arn}"
 }
 
-resource "aws_iam_policy" "archive_bucket_access" {
-    name = "archive_bucket_access"
+resource "aws_iam_policy" "archive_bucket_readonly" {
+  name = "archive_bucket_readonly"
+  path = "/"
+  description = "Allows read-only access to the event archive bucket"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": "${aws_s3_bucket.event_archive_bucket.arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+      ],
+      "Resource": "${aws_s3_bucket.event_archive_bucket.arn}/*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_policy" "archive_bucket_readwrite" {
+    name = "archive_bucket_readwrite"
     path = "/"
-    description = "Allows access to the event archive bucket"
+    description = "Allows read/write access to the event archive bucket"
     policy = <<EOF
 {
   "Version": "2012-10-17",
