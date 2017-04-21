@@ -22,7 +22,12 @@ resource "aws_iam_access_key" "mailer" {
   user = "${aws_iam_user.mailer.name}"
 }
 
-resource "aws_iam_user_policy" "send_ses_email" {
+resource "aws_iam_user_policy_attachment" "mailer_put_to_stream" {
+  user = "${aws_iam_user.mailer.name}"
+  policy_arn = "${aws_iam_policy.put_to_stream.arn}"
+}
+
+resource "aws_iam_user_policy" "mailer_send_ses_email" {
   name = "send_ses_email"
   user = "${aws_iam_user.mailer.name}"
   policy = <<EOF

@@ -50,3 +50,4 @@
         - "AWS_SECRET_ACCESS_KEY={{ lookup('env','MAILER_AWS_SECRET_ACCESS_KEY') }}"
         - "LISTENER_AUTH_TOKEN={{ lookup('env','MAILER_LISTENER_AUTH_TOKEN') }}"
         - "EMAIL_FROM_ADDRESS={{ lookup('env', 'MAILER_EMAIL_FROM_ADDRESS') }}"
+        - "STREAM_NAME={{ lookup('env','STREAM_NAME') }}"
