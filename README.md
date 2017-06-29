@@ -7,7 +7,7 @@ Code for spinning up Rabble Rouser infrastructure and provisioning the app.
 Right now this is not suitable for end users to be running on their own. You probably need to be at least semi-technical
 for these instructions to make sense.
 
-1. [Install Terraform 0.8.x](https://www.terraform.io/intro/getting-started/install.html)
+1. [Install Terraform 0.9.x](https://www.terraform.io/intro/getting-started/install.html)
 OR
 `brew install terraform`
 2. [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
@@ -29,15 +29,15 @@ OR
     aws s3api create-bucket --bucket example-bucket-tf-state --region ap-southeast-2 --create-bucket-configuration LocationConstraint=ap-southeast-2 --acl private
     ```
 
-8. Go into the `terraform/` directory. From there, configure terraform to use the bucket:
+8. Go into the `terraform/` directory. From there, run `terraform init`. It will ask you for some S3 config. Specify the
+location where your remote state lives. For demo.rr-staging.click, this will be:
 
-    ```sh
-    terraform remote config \
-      -backend=s3 \
-      -backend-config="bucket=example-bucket-tf-state" \
-      -backend-config="key=terraform.tfstate" \
-      -backend-config="region=ap-southeast-2"
     ```
+    bucket: rr-staging.click-tf-state
+    key: terraform.tfstate
+    region: ap-southeast-2
+    ```
+
 9. **Note: This is only necessary for a brand new environment.** If you want email sending to work, you need to set up SES. See the instructions in [mailer](https://github.com/rabblerouser/mailer) for how to do that.
 
 ## What did that just do?

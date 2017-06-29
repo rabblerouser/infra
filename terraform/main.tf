@@ -1,3 +1,9 @@
+terraform {
+  backend "s3" {
+    # Empty config here because each organisation will configure its own remote state
+  }
+}
+
 provider "aws" {
   region = "${var.region}"
 }
