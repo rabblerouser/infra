@@ -75,7 +75,7 @@ resource "aws_iam_policy" "archive_bucket_readonly" {
     {
       "Effect": "Allow",
       "Action": [
-        "s3:GetObject",
+        "s3:GetObject"
       ],
       "Resource": "${aws_s3_bucket.event_archive_bucket.arn}/*"
     }
