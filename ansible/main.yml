@@ -8,6 +8,7 @@
   roles:
     - { role: firewall }
     - { role: geerlingguy.nodejs, nodejs_version: '6.x' }
+    - { role: angstwad.docker_ubuntu }
 
     - role: letsencrypt
       cert_contact_email: "{{ lookup('env','CERT_EMAIL') }}"
