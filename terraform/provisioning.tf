@@ -41,7 +41,6 @@ resource "null_resource" "provisioner" {
       CORE_AWS_ACCESS_KEY_ID='${aws_iam_access_key.core.id}' \
       CORE_AWS_SECRET_ACCESS_KEY='${aws_iam_access_key.core.secret}' \
       CORE_LISTENER_AUTH_TOKEN='${module.core_event_forwarder.auth_token}' \
-      CORE_DATABASE_URL='postgres://${aws_db_instance.db.username}:${aws_db_instance.db.password}@${aws_db_instance.db.address}:${aws_db_instance.db.port}/${aws_db_instance.db.name}' \
       CORE_SESSION_SECRET='${random_id.session_secret.hex}' \
       \
       MAILER_DOMAIN='${aws_route53_record.mailer_domain.fqdn}' \

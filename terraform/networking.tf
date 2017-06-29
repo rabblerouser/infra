@@ -13,7 +13,7 @@ resource "aws_eip" "eip" {
 
 resource "aws_security_group" "web" {
   name = "rabble_rouser_web"
-  description = "Allow SSH and HTTP(S) in. Allow DNS, HTTP(S), and RDS out."
+  description = "Allow SSH and HTTP(S) in. Allow DNS and HTTP(S) out."
 
   ingress {
     from_port = 22
@@ -56,26 +56,4 @@ resource "aws_security_group" "web" {
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  egress {
-    from_port = 5432
-    to_port = 5432
-    protocol = "tcp"
-    security_groups = ["${aws_security_group.rds.id}"]
-  }
-}
-
-resource "aws_security_group" "rds" {
-  name = "rds"
-  description = "A group for RDS to live in, which allows access from the web group"
-}
-
-resource "aws_security_group_rule" "rds_ingress" {
-  # This is down here to break the cyclic dependency between the web and rds security groups
-  security_group_id = "${aws_security_group.rds.id}"
-  type = "ingress"
-  from_port = 5432
-  to_port = 5432
-  protocol = "tcp"
-  source_security_group_id = "${aws_security_group.web.id}"
 }
