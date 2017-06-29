@@ -13,11 +13,6 @@ variable "domain" {
   type = "string"
 }
 
-variable "email_from_address" {
-  description = "The email address from where emails should be sent"
-  type = "string"
-}
-
 variable "seed_database" {
   description = "Whether or not the database should be seeded with default data when the provisioner runs"
   type = "string"

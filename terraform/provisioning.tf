@@ -48,7 +48,6 @@ resource "null_resource" "provisioner" {
       MAILER_AWS_ACCESS_KEY_ID='${aws_iam_access_key.mailer.id}' \
       MAILER_AWS_SECRET_ACCESS_KEY='${aws_iam_access_key.mailer.secret}' \
       MAILER_LISTENER_AUTH_TOKEN='${module.mailer_event_forwarder.auth_token}' \
-      MAILER_EMAIL_FROM_ADDRESS='${var.email_from_address}' \
       \
       STREAM_NAME='${aws_kinesis_stream.rabblerouser_stream.name}' \
       ARCHIVE_BUCKET='${aws_s3_bucket.event_archive_bucket.bucket}' \
