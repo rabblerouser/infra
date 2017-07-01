@@ -9,23 +9,7 @@
     - { role: firewall }
     - { role: geerlingguy.nodejs, nodejs_version: '6.x' }
     - { role: angstwad.docker_ubuntu }
-
-    - role: letsencrypt
-      cert_contact_email: "{{ lookup('env','CERT_EMAIL') }}"
-      cert_domains:
-        - "{{ lookup('env', 'BARE_DOMAIN') }}"
-        - "{{ lookup('env', 'CORE_DOMAIN') }}"
-        - "{{ lookup('env', 'MAILER_DOMAIN') }}"
-
-    - role: nginx
-      servers:
-        - name: "{{ lookup('env', 'BARE_DOMAIN') }}"
-          port: 3000
-        - name: "{{ lookup('env', 'CORE_DOMAIN') }}"
-          port: 3000
-        - name: "{{ lookup('env', 'MAILER_DOMAIN') }}"
-          port: 3001
-      https_certs_dir: "/etc/letsencrypt/live/{{ lookup('env', 'BARE_DOMAIN') }}"
+    - { role: nginx }
 
     - role: node-app
       app_name: rabblerouser-core

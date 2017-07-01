@@ -1,6 +1,6 @@
 server {
   listen 443;
-  server_name {{ item.name }};
+  server_name {{ app_domain }};
 
   ssl on;
   ssl_certificate {{ https_certs_dir }}/fullchain.pem;
@@ -14,7 +14,7 @@ server {
   ssl_prefer_server_ciphers on;
 
   location / {
-    proxy_pass http://localhost:{{ item.port }};
+    proxy_pass http://localhost:{{ app_port }};
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header Host $http_host;
