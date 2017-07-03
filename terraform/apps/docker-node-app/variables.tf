@@ -61,5 +61,5 @@ variable "tls_cert_email" {
 
 variable "private_key_path" {
   description = "Private key to be used for ansible provisioning"
-  default = "~/.ssh/id_rsa"
+  type = "string"
 }

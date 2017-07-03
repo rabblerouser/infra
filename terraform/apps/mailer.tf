@@ -3,15 +3,15 @@ module "mailer_app" {
   name = "mailer"
   docker_image = "rabblerouser/mailer"
   port = "3001"
-  host_ip = "${aws_eip.eip.public_ip}"
-  stream_arn = "${aws_kinesis_stream.rabblerouser_stream.arn}"
-  archive_bucket_arn = "${aws_s3_bucket.event_archive_bucket.arn}"
+  host_ip = "${var.host_ip}"
+  stream_arn = "${var.stream_arn}"
+  archive_bucket_arn = "${var.archive_bucket_arn}"
   parent_domain_name = "${var.domain}"
   route53_parent_zone_id = "${var.route53_zone_id}"
   tls_cert_email = "${var.tls_cert_email}"
   private_key_path = "${var.private_key_path}"
-  stream_name = "${aws_kinesis_stream.rabblerouser_stream.name}"
-  archive_bucket_name = "${aws_s3_bucket.event_archive_bucket.bucket}"
+  stream_name = "${var.stream_name}"
+  archive_bucket_name = "${var.archive_bucket_name}"
 }
 
 resource "aws_iam_user_policy" "mailer_send_ses_email" {

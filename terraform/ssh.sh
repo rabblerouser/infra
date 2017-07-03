@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ssh ubuntu@`terraform output ip`
+ssh ubuntu@`terraform output host_ip`
