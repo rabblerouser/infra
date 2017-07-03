@@ -1,35 +1,22 @@
-resource "aws_route53_record" "mailer_domain" {
-  # Attaching a subdomain to an existing zone
-  zone_id = "${var.route53_zone_id}"
-  name = "mailer.${var.domain}"
-  type = "A"
-  ttl = "300" # seconds
-  records = ["${aws_eip.eip.public_ip}"]
-}
-
-module "mailer_event_forwarder" {
-  source = "./event-forwarder"
+module "mailer_app" {
+  source = "./docker-node-app"
   name = "mailer"
+  docker_image = "rabblerouser/mailer"
+  port = "3001"
+  host_ip = "${aws_eip.eip.public_ip}"
   stream_arn = "${aws_kinesis_stream.rabblerouser_stream.arn}"
-  forward_to = "https://${aws_route53_record.mailer_domain.fqdn}/events"
-}
-
-resource "aws_iam_user" "mailer" {
-  name = "rabblerouser_mailer"
-}
-
-resource "aws_iam_access_key" "mailer" {
-  user = "${aws_iam_user.mailer.name}"
-}
-
-resource "aws_iam_user_policy_attachment" "mailer_put_to_stream" {
-  user = "${aws_iam_user.mailer.name}"
-  policy_arn = "${aws_iam_policy.put_to_stream.arn}"
+  archive_bucket_arn = "${aws_s3_bucket.event_archive_bucket.arn}"
+  parent_domain_name = "${var.domain}"
+  route53_parent_zone_id = "${var.route53_zone_id}"
+  tls_cert_email = "${var.tls_cert_email}"
+  private_key_path = "${var.private_key_path}"
+  stream_name = "${aws_kinesis_stream.rabblerouser_stream.name}"
+  archive_bucket_name = "${aws_s3_bucket.event_archive_bucket.bucket}"
 }
 
 resource "aws_iam_user_policy" "mailer_send_ses_email" {
   name = "send_ses_email"
-  user = "${aws_iam_user.mailer.name}"
+  user = "${module.mailer_app.aws_user_name}"
   policy = <<EOF
 {
   "Version": "2012-10-17",

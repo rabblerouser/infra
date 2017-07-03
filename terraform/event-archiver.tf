@@ -54,41 +54,10 @@ resource "aws_iam_role_policy_attachment" "event_archiver_base_policy" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaKinesisExecutionRole"
 }
 
-resource "aws_iam_role_policy_attachment" "event_archiver_bucket_policy" {
+resource "aws_iam_role_policy" "event_archiver_readwrite_bucket" {
+  name = "event_archiver_readwrite_bucket"
   role = "${aws_iam_role.event_archiver_role.name}"
-  policy_arn = "${aws_iam_policy.archive_bucket_readwrite.arn}"
-}
-
-resource "aws_iam_policy" "archive_bucket_readonly" {
-  name = "archive_bucket_readonly"
-  path = "/"
-  description = "Allows read-only access to the event archive bucket"
   policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ["s3:ListBucket"],
-      "Resource": "${aws_s3_bucket.event_archive_bucket.arn}"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": "${aws_s3_bucket.event_archive_bucket.arn}/*"
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_policy" "archive_bucket_readwrite" {
-    name = "archive_bucket_readwrite"
-    path = "/"
-    description = "Allows read/write access to the event archive bucket"
-    policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [

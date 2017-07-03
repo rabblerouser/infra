@@ -1,33 +1,27 @@
-resource "aws_route53_record" "core_domain" {
-  # Attaching a subdomain to an existing zone
-  zone_id = "${var.route53_zone_id}"
-  name = "core.${var.domain}"
-  type = "A"
-  ttl = "300" # seconds
-  records = ["${aws_eip.eip.public_ip}"]
-}
-
-module "core_event_forwarder" {
-  source = "./event-forwarder"
+module "core_app" {
+  source = "./docker-node-app"
   name = "core"
+  docker_image = "rabblerouser/core"
+  port = "3000"
+  host_ip = "${aws_eip.eip.public_ip}"
   stream_arn = "${aws_kinesis_stream.rabblerouser_stream.arn}"
-  forward_to = "https://${aws_route53_record.core_domain.fqdn}/events"
+  archive_bucket_arn = "${aws_s3_bucket.event_archive_bucket.arn}"
+  parent_domain_name = "${var.domain}"
+  route53_parent_zone_id = "${var.route53_zone_id}"
+  tls_cert_email = "${var.tls_cert_email}"
+  private_key_path = "${var.private_key_path}"
+  stream_name = "${aws_kinesis_stream.rabblerouser_stream.name}"
+  archive_bucket_name = "${aws_s3_bucket.event_archive_bucket.bucket}"
+  env = ["SESSION_SECRET=${random_id.session_secret.hex}"]
 }
 
-resource "aws_iam_user" "core" {
-  name = "rabblerouser_core"
+resource "random_id" "session_secret" {
+  keepers = {
+    # Generate a new session secret when building a new EC2 instance
+    ec2_instance_id = "${aws_instance.web.id}"
+  }
+  byte_length = 32
 }
 
-resource "aws_iam_access_key" "core" {
-  user = "${aws_iam_user.core.name}"
-}
-
-resource "aws_iam_user_policy_attachment" "core_put_to_stream" {
-  user = "${aws_iam_user.core.name}"
-  policy_arn = "${aws_iam_policy.put_to_stream.arn}"
-}
-
-resource "aws_iam_user_policy_attachment" "core_read_bucket" {
-  user = "${aws_iam_user.core.name}"
-  policy_arn = "${aws_iam_policy.archive_bucket_readonly.arn}"
-}
+# setup_command: "{{ (lookup('env', 'SEED_DATABASE') == 'true') | ternary('npm run --prefix backend seed','') }}"
+# SEED_DATABASE='${var.seed_database}'\
