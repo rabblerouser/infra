@@ -56,25 +56,41 @@ Notes on the S3 bucket:
 are in there by default are specific for the project's staging instance at https://demo.rr-staging.click. You can also
 override any of the variables in `variables.tf` if you don't like their default values.
 
-2. Do a dry run first to see what terraform will do:
+2. Do a dry run of the base infrastructure:
 
-    ```
-    terraform plan
-    ```
-
-3. Create the infrastructure: *Warning: this will cost you money, even if you have the AWS free tier!*
-
-    ```
-    terraform apply
+    ```sh
+    ./tf.sh plan base
     ```
 
-## Re-run the provisioner
+3. Create the base infrastructure: *Warning: this will cost you money, even if you have the AWS free tier!*
 
-You might want to do this because the ansible code has changed, or to deploy the latest version of the app:
+    ```sh
+    ./tf.sh apply base
+    ```
+
+4. Do a dry run of the app deployment:
+
+    ```sh
+    ./tf.sh plan apps
+    ```
+
+5. Deploy the apps:
+
+    ```sh
+    ./tf.sh apply apps
+    ```
+
+Once you've created the base infrastructure successfully, you can plan or apply the whole project in one go:
 
 ```sh
-./re-deploy.sh
+./tf.sh plan
+./tf.sh apply
 ```
+
+## About that script
+Due to some terraform limitations ([1](https://github.com/hashicorp/terraform/issues/10462), [2](https://github.com/hashicorp/terraform/issues/5190)),
+we currently need to wrap terraform in a script when planning or applying. Run the script with no arguments to see how
+to use it.
 
 ## To seed the database
 

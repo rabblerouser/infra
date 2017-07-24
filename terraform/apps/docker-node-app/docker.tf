@@ -1,5 +1,5 @@
 provider "docker" {
-  host = "tcp://${var.host_ip}:2376"
+  host = "tcp://${var.host_ip}:2375"
 }
 
 data "docker_registry_image" "app_image" {
@@ -14,6 +14,11 @@ resource "docker_image" "app_image" {
 resource "docker_container" "app_container" {
   name = "${var.name}"
   image = "${docker_image.app_image.latest}"
+  ports = {
+    internal = "${var.port}"
+    external = "${var.port}"
+    ip = "127.0.0.1"
+  }
   env = ["${concat(
     list(
       "AWS_ACCESS_KEY_ID=${aws_iam_access_key.app_aws_key.id}",

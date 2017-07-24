@@ -29,3 +29,7 @@ module apps {
   stream_name = "${module.base.stream_name}"
   archive_bucket_name = "${module.base.archive_bucket_name}"
 }
+
+output host_ip {
+  value = "${module.base.host_ip}"
+}

@@ -7,5 +7,5 @@
         setup:
   roles:
     - { role: firewall }
-    - { role: angstwad.docker_ubuntu }
+    - { role: angstwad.docker_ubuntu, docker_opts: '-H tcp://0.0.0.0:2375' }
     - { role: nginx }
