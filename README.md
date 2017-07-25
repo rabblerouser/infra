@@ -98,7 +98,7 @@ Before the application can be useful, the database needs some seed data. The see
 provisioner, but because it is not idempotent (i.e. you should only run it once), you must opt-in to it:
 
 ```sh
-terraform apply -var 'seed_database=true'
+./tf apply seeder
 ```
 
 ## Running it without a tfvars config file

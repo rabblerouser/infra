@@ -27,9 +27,3 @@ variable "region" {
   description = "The AWS region to create all the infrastructure in"
   default = "ap-southeast-2"
 }
-
-variable "seed_database" {
-  description = "Whether or not the database should be seeded with default data when the provisioner runs"
-  type = "string"
-  default = "false"
-}

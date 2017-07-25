@@ -30,6 +30,13 @@ module apps {
   archive_bucket_name = "${module.base.archive_bucket_name}"
 }
 
+module seeder {
+  source = "./seeder"
+  host_ip = "${module.base.host_ip}"
+  stream_arn = "${module.base.stream_arn}"
+  stream_name = "${module.base.stream_name}"
+}
+
 output host_ip {
   value = "${module.base.host_ip}"
 }

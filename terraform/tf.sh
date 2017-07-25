@@ -16,11 +16,12 @@ function usage() {
   echo 'Usage:\n\t tf.sh <COMMAND> [<MODULE>]'
   echo
   echo 'COMMAND: Either `plan` or `apply`'
-  echo 'MODULE: Either `base` or `apps`, or omit to do both'
+  echo 'MODULE: Either `base`, `apps`, `seeder`, or omit to do both `base` and `apps`'
   echo
   echo 'Examples:'
   echo '\t./tf.sh plan base'
   echo '\t./tf.sh apply'
+  echo '\t./tf.sh apply seeder'
   exit 1
 }
 
@@ -28,6 +29,7 @@ BASE="--target module.base"
 APPS="--target module.apps"
 CORE="--target module.apps.module.core_app --target module.apps.module.core_app.module.app_event_forwarder"
 MAILER="--target module.apps.module.mailer_app --target module.apps.module.mailer_app.module.app_event_forwarder"
+SEED="--target module.seeder"
 
 case "$1 $2" in
   "plan ")
@@ -41,6 +43,10 @@ case "$1 $2" in
   "plan apps")
     set -x
     eval terraform plan "$APPS" "$CORE" "$MAILER"
+    ;;
+  "plan seeder")
+    set -x
+    eval terraform plan "$SEED"
     ;;
 
   "apply ")
@@ -57,6 +63,10 @@ case "$1 $2" in
     set -x
     eval terraform apply "$APPS" "$CORE"
     eval terraform apply "$APPS" "$MAILER"
+    ;;
+  "apply seeder")
+    set -x
+    eval terraform apply "$SEED"
     ;;
   *)
     usage

@@ -22,6 +22,3 @@ resource "random_id" "session_secret" {
   }
   byte_length = 32
 }
-
-# setup_command: "{{ (lookup('env', 'SEED_DATABASE') == 'true') | ternary('npm run --prefix backend seed','') }}"
-# SEED_DATABASE='${var.seed_database}'\
