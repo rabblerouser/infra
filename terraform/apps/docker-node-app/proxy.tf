@@ -1,9 +1,11 @@
 resource "null_resource" "app_proxy_provisioner" {
   depends_on = ["aws_route53_record.app_domain"]
 
-  # triggers {
-    # instance = "${aws_instance.web.id}"
-  # }
+  triggers {
+    cert_email = "${var.tls_cert_email}"
+    domain = "${aws_route53_record.app_domain.fqdn}"
+    port = "${var.port}"
+  }
 
   provisioner "local-exec" {
     command = <<EOF
