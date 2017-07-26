@@ -26,10 +26,6 @@ resource "random_id" "auth_token" {
   byte_length = 32
 }
 
-output "auth_token" {
-  value = "${random_id.auth_token.hex}"
-}
-
 resource "aws_lambda_function" "event_forwarder" {
   s3_bucket = "${data.aws_s3_bucket_object.event_forwarder_zip.bucket}"
   s3_key = "${data.aws_s3_bucket_object.event_forwarder_zip.key}"
