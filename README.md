@@ -59,32 +59,32 @@ override any of the variables in `variables.tf` if you don't like their default 
 2. Do a dry run of the base infrastructure:
 
     ```sh
-    ./tf.sh plan base
+    ./tf plan base
     ```
 
 3. Create the base infrastructure: *Warning: this will cost you money, even if you have the AWS free tier!*
 
     ```sh
-    ./tf.sh apply base
+    ./tf apply base
     ```
 
 4. Do a dry run of the app deployment:
 
     ```sh
-    ./tf.sh plan apps
+    ./tf plan apps
     ```
 
 5. Deploy the apps:
 
     ```sh
-    ./tf.sh apply apps
+    ./tf apply apps
     ```
 
 Once you've created the base infrastructure successfully, you can plan or apply the whole project in one go:
 
 ```sh
-./tf.sh plan
-./tf.sh apply
+./tf plan
+./tf apply
 ```
 
 ## About that script

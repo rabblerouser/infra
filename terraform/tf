@@ -13,15 +13,15 @@ if [[ -z `which aws` ]]; then
 fi
 
 function usage() {
-  echo 'Usage:\n\t tf.sh <COMMAND> [<MODULE>]'
+  echo 'Usage:\n\t ./tf <COMMAND> [<MODULE>]'
   echo
   echo 'COMMAND: Either `plan` or `apply`'
   echo 'MODULE: Either `base`, `apps`, `seeder`, or omit to do both `base` and `apps`'
   echo
   echo 'Examples:'
-  echo '\t./tf.sh plan base'
-  echo '\t./tf.sh apply'
-  echo '\t./tf.sh apply seeder'
+  echo '\t./tf plan base'
+  echo '\t./tf apply'
+  echo '\t./tf apply seeder'
   exit 1
 }
 
