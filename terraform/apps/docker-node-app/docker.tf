@@ -1,5 +1,8 @@
 provider "docker" {
-  host = "tcp://${var.host_ip}:2375"
+  host = "tcp://${var.host_ip}:2376"
+  key_material = "${var.docker_api_key}"
+  ca_material = "${var.docker_api_ca}"
+  cert_material = "${var.docker_api_cert}"
 }
 
 data "docker_registry_image" "app_image" {

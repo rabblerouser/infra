@@ -7,5 +7,13 @@
         setup:
   roles:
     - { role: firewall }
-    - { role: angstwad.docker_ubuntu, docker_opts: '-H tcp://0.0.0.0:2375' }
+    - role: docker_tls_files
+      key_path: '/docker/key.pem'
+      ca_path: '/docker/ca.pem'
+      cert_path: '/docker/cert.pem'
+      key: "{{ lookup('env', 'DOCKER_API_KEY') }}"
+      ca: "{{ lookup('env', 'DOCKER_API_CA') }}"
+      cert: "{{ lookup('env', 'DOCKER_API_CERT') }}"
+    - role: angstwad.docker_ubuntu
+      docker_opts: "-H tcp://0.0.0.0:2376 --tlsverify --tlskey /docker/key.pem --tlscacert /docker/ca.pem --tlscert /docker/cert.pem"
     - { role: nginx }

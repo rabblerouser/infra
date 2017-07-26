@@ -17,3 +17,15 @@ output "stream_name" {
 output "archive_bucket_name" {
   value = "${aws_s3_bucket.event_archive_bucket.bucket}"
 }
+
+output "docker_api_key" {
+  value = "${tls_private_key.docker_key.private_key_pem}"
+}
+
+output "docker_api_ca" {
+  value = "${tls_self_signed_cert.docker_ca.cert_pem}"
+}
+
+output "docker_api_cert" {
+  value = "${tls_locally_signed_cert.docker_cert.cert_pem}"
+}
