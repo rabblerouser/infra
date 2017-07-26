@@ -13,7 +13,7 @@ resource "aws_eip" "eip" {
 
 resource "aws_security_group" "web" {
   name = "rabble_rouser_web"
-  description = "Allow SSH, HTTP(S), and Docker in. Allow DNS, HTTP(S), and Docker out out."
+  description = "Allow SSH, HTTP(S), and Docker in. Allow DNS and HTTP(S) out."
 
   ingress {
     from_port = 22
