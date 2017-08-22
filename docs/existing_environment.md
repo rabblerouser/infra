@@ -11,7 +11,8 @@ If you're trying to create a brand new environment, follow [these instructions](
 Make sure you [install them](../README.md#dependencies) first.
 
 ## Set up AWS
-1. Ask an existing team member to create an AWS user for you
+1. Ask an existing team member to create an AWS user for you. *(note: we usually only give access to people we know - if
+  you're new to the project then you might need to create your own AWS account to work in)*
 2. [Configure an API key pair for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 
 ## Go into the terraform sub-directory
@@ -20,6 +21,14 @@ All commands from here on in should be run from here:
 
 ```sh
 cd terraform
+```
+
+## Initialise the terraform modules
+
+This tells terraform to go and find any modules (local or remote), and initialise or download them:
+
+```sh
+terraform get
 ```
 
 ## Configure terraform remote state

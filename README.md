@@ -32,12 +32,15 @@ cd terraform
 
 ## SSH Access
 
-Assuming you've created the the EC2 instance and so your SSH key is on there, you can just run this helper script:
+If the EC2 instance exists and your SSH public key is on it, you can use this helper script:
 
 ```sh
 cd terraform
 ./ssh.sh
 ```
+
+Unfortunately this only works if you were the last person to run the provisioner, otherwise someone else's public key
+will have overwritten yours. We intend to remove this limitation in the future.
 
 ## Troubleshooting
 

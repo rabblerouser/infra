@@ -52,6 +52,14 @@ All commands from here on in should be run from here:
 cd terraform
 ```
 
+## Initialise the terraform modules
+
+This tells terraform to go and find any modules (local or remote), and initialise or download them:
+
+```sh
+terraform get
+```
+
 ## Configure terraform remote state
 
 Earlier we manually created an S3 bucket for our terraform state to live in. Now we need to configure terraform to use it:
