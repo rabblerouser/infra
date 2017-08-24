@@ -1,5 +1,0 @@
----
-app_user: "{{ app_name }}"
-app_path: "/opt/{{ app_name }}"
-logs_dir: "/var/log/{{ app_name }}"
-pids_dir: "/var/run/{{ app_name }}"

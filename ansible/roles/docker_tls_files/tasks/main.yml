@@ -1,0 +1,30 @@
+- file:
+    path: /docker
+    state: directory
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Docker API TLS key
+  copy:
+    dest: "{{ key_path }}"
+    owner: root
+    group: root
+    mode: 0600
+    content: "{{ key }}"
+
+- name: Docker API TLS CA cert
+  copy:
+    dest: "{{ ca_path }}"
+    owner: root
+    group: root
+    mode: 0600
+    content: "{{ ca }}"
+
+- name: Docker API TLS cert
+  copy:
+    dest: "{{ cert_path }}"
+    owner: root
+    group: root
+    mode: 0600
+    content: "{{ cert }}"

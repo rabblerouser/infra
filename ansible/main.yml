@@ -7,30 +7,13 @@
         setup:
   roles:
     - { role: firewall }
-    - { role: geerlingguy.nodejs, nodejs_version: '6.x' }
-    - { role: angstwad.docker_ubuntu }
+    - role: docker_tls_files
+      key_path: '/docker/key.pem'
+      ca_path: '/docker/ca.pem'
+      cert_path: '/docker/cert.pem'
+      key: "{{ lookup('env', 'DOCKER_API_KEY') }}"
+      ca: "{{ lookup('env', 'DOCKER_API_CA') }}"
+      cert: "{{ lookup('env', 'DOCKER_API_CERT') }}"
+    - role: angstwad.docker_ubuntu
+      docker_opts: "-H tcp://0.0.0.0:2376 --tlsverify --tlskey /docker/key.pem --tlscacert /docker/ca.pem --tlscert /docker/cert.pem"
     - { role: nginx }
-
-    - role: node-app
-      app_name: rabblerouser-core
-      repo: https://github.com/rabblerouser/core.git
-      git_sha: "{{ lookup('env', 'CORE_APP_GIT_SHA') }}"
-      setup_command: "{{ (lookup('env', 'SEED_DATABASE') == 'true') | ternary('npm run --prefix backend seed','') }}"
-      env_vars:
-        - "AWS_ACCESS_KEY_ID={{ lookup('env','CORE_AWS_ACCESS_KEY_ID') }}"
-        - "AWS_SECRET_ACCESS_KEY={{ lookup('env','CORE_AWS_SECRET_ACCESS_KEY') }}"
-        - "LISTENER_AUTH_TOKEN={{ lookup('env','CORE_LISTENER_AUTH_TOKEN') }}"
-        - "SESSION_SECRET={{ lookup('env','CORE_SESSION_SECRET') }}"
-        - "STREAM_NAME={{ lookup('env','STREAM_NAME') }}"
-        - "ARCHIVE_BUCKET={{ lookup('env','ARCHIVE_BUCKET') }}"
-
-    - role: node-app
-      app_name: rabblerouser-mailer
-      repo: https://github.com/rabblerouser/mailer.git
-      git_sha: "{{ lookup('env', 'MAILER_APP_GIT_SHA') }}"
-      setup_command: ""
-      env_vars:
-        - "AWS_ACCESS_KEY_ID={{ lookup('env','MAILER_AWS_ACCESS_KEY_ID') }}"
-        - "AWS_SECRET_ACCESS_KEY={{ lookup('env','MAILER_AWS_SECRET_ACCESS_KEY') }}"
-        - "LISTENER_AUTH_TOKEN={{ lookup('env','MAILER_LISTENER_AUTH_TOKEN') }}"
-        - "STREAM_NAME={{ lookup('env','STREAM_NAME') }}"
