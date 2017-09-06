@@ -28,7 +28,8 @@ resource "docker_container" "app_container" {
       "AWS_SECRET_ACCESS_KEY=${aws_iam_access_key.app_aws_key.secret}",
       "LISTENER_AUTH_TOKEN=${module.app_event_forwarder.auth_token}",
       "STREAM_NAME=${var.stream_name}",
-      "ARCHIVE_BUCKET=${var.archive_bucket_name}"
+      "ARCHIVE_BUCKET=${var.archive_bucket_name}",
+      "DOMAIN=${var.parent_domain_name}"
     ),
     "${var.env}"
   )}"]
