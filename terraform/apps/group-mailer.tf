@@ -1,8 +1,8 @@
-module "mailer_app" {
+module "group-mailer_app" {
   source = "./docker-node-app"
-  name = "mailer"
-  docker_image = "rabblerouser/mailer"
-  port = "3001"
+  name = "group-mailer"
+  docker_image = "rabblerouser/group-mailer"
+  port = "3002"
   host_ip = "${var.host_ip}"
   docker_api_key = "${var.docker_api_key}"
   docker_api_ca = "${var.docker_api_ca}"
@@ -16,19 +16,4 @@ module "mailer_app" {
   stream_name = "${var.stream_name}"
   archive_bucket_name = "${var.archive_bucket_name}"
   env = ["S3_EMAIL_BUCKET=TODO"]
-}
-
-resource "aws_iam_user_policy" "mailer_send_ses_email" {
-  name = "send_ses_email"
-  user = "${module.mailer_app.aws_user_name}"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [{
-      "Effect": "Allow",
-      "Action": "ses:SendEmail",
-      "Resource": "*"
-  }]
-}
-EOF
 }
