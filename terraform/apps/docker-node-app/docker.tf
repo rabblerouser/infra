@@ -24,6 +24,7 @@ resource "docker_container" "app_container" {
   }
   env = ["${concat(
     list(
+      "PORT=${var.port}",
       "AWS_ACCESS_KEY_ID=${aws_iam_access_key.app_aws_key.id}",
       "AWS_SECRET_ACCESS_KEY=${aws_iam_access_key.app_aws_key.secret}",
       "LISTENER_AUTH_TOKEN=${module.app_event_forwarder.auth_token}",
