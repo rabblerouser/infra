@@ -1,4 +1,4 @@
-module "group-mailer_app" {
+module "group_mailer_app" {
   source = "./docker-node-app"
   name = "group-mailer"
   docker_image = "rabblerouser/group-mailer"
@@ -15,5 +15,7 @@ module "group-mailer_app" {
   private_key_path = "${var.private_key_path}"
   stream_name = "${var.stream_name}"
   archive_bucket_name = "${var.archive_bucket_name}"
-  env = ["S3_EMAIL_BUCKET=TODO"]
+  env = ["S3_EMAIL_BUCKET=${var.domain}-mail-storage"]
 }
+
+# NOTE: If you add more resources here, they need to be added to the $GROUP_MAILER variable in the tf shell script
