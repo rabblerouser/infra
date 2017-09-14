@@ -15,7 +15,31 @@ module "group_mailer_app" {
   private_key_path = "${var.private_key_path}"
   stream_name = "${var.stream_name}"
   archive_bucket_name = "${var.archive_bucket_name}"
-  env = ["S3_EMAIL_BUCKET=${var.domain}-mail-storage"]
+  env = ["S3_EMAIL_BUCKET=${var.mail_bucket_name}"]
+}
+
+resource "aws_iam_user_policy" "group_mailer_read_mail_bucket" {
+  name = "group_mailer_read_mail_bucket"
+  user =  "${module.group_mailer_app.aws_user_name}"
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": "${var.mail_bucket_arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Resource": "${var.mail_bucket_arn}/*"
+    }
+  ]
+}
+EOF
 }
 
 # NOTE: If you add more resources here, they need to be added to the $GROUP_MAILER variable in the tf shell script

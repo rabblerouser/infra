@@ -57,3 +57,13 @@ variable "archive_bucket_name" {
   description = "The name of the event archive bucket"
   type = "string"
 }
+
+variable "mail_bucket_arn" {
+  description = "The ARN of the mail storage bucket"
+  type = "string"
+}
+
+variable "mail_bucket_name" {
+  description = "The name of the mail storage bucket"
+  type = "string"
+}

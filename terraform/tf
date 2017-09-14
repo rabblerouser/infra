@@ -33,8 +33,8 @@ function usage() {
 BASE="--target module.base"
 APPS="--target module.apps"
 CORE="--target module.apps.module.core_app --target module.apps.random_id.session_secret"
-MAILER="--target module.apps.module.mailer_app --target module.apps.aws_iam_user_policy.mailer_send_ses_email"
-GROUP_MAILER="--target module.apps.module.group_mailer_app"
+MAILER="--target module.apps.module.mailer_app --target module.apps.aws_iam_user_policy.mailer_send_ses_email --target module.apps.aws_iam_user_policy.mailer_read_mail_bucket"
+GROUP_MAILER="--target module.apps.module.group_mailer_app --target module.apps.aws_iam_user_policy.group_mailer_read_mail_bucket"
 SEED="--target module.seeder"
 
 case "$1 $2" in

@@ -28,9 +28,11 @@ module apps {
   docker_api_ca = "${module.base.docker_api_ca}"
   docker_api_cert = "${module.base.docker_api_cert}"
   stream_arn = "${module.base.stream_arn}"
-  archive_bucket_arn = "${module.base.archive_bucket_arn}"
   stream_name = "${module.base.stream_name}"
+  archive_bucket_arn = "${module.base.archive_bucket_arn}"
   archive_bucket_name = "${module.base.archive_bucket_name}"
+  mail_bucket_arn = "arn:aws:s3:::${var.domain}-mail-storage" #TODO: Look up from the actual bucket resource
+  mail_bucket_name = "${var.domain}-mail-storage" #TODO: Look up from the actual bucket resource
 }
 
 module seeder {
