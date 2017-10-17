@@ -12,6 +12,11 @@ if [[ -z `which aws` ]]; then
   exit 1
 fi
 
+if [[ -z `terraform version | grep v0.10` ]]; then
+  echo 'Error: This script should only be run with terraform v0.10'
+  exit 1
+fi
+
 function usage() {
   echo 'Usage:\n\t ./tf <COMMAND> [<MODULE>]'
   echo
@@ -27,8 +32,9 @@ function usage() {
 
 BASE="--target module.base"
 APPS="--target module.apps"
-CORE="--target module.apps.module.core_app --target module.apps.module.core_app.module.app_event_forwarder"
-MAILER="--target module.apps.module.mailer_app --target module.apps.module.mailer_app.module.app_event_forwarder"
+CORE="--target module.apps.module.core_app --target module.apps.random_id.session_secret"
+MAILER="--target module.apps.module.mailer_app --target module.apps.aws_iam_user_policy.mailer_send_ses_email --target module.apps.aws_iam_user_policy.mailer_read_mail_bucket"
+GROUP_MAILER="--target module.apps.module.group_mailer_app --target module.apps.aws_iam_user_policy.group_mailer_read_mail_bucket"
 SEED="--target module.seeder"
 
 case "$1 $2" in
@@ -42,7 +48,7 @@ case "$1 $2" in
     ;;
   "plan apps")
     set -x
-    eval terraform plan "$APPS" "$CORE" "$MAILER"
+    eval terraform plan "$APPS"
     ;;
   "plan seeder")
     set -x
@@ -52,8 +58,9 @@ case "$1 $2" in
   "apply ")
     set -x
     eval terraform apply "$BASE"
-    eval terraform apply "$APPS" "$CORE"
-    eval terraform apply "$APPS" "$MAILER"
+    eval terraform apply "$CORE"
+    eval terraform apply "$MAILER"
+    eval terraform apply "$GROUP_MAILER"
     ;;
   "apply base")
     set -x
@@ -61,8 +68,9 @@ case "$1 $2" in
     ;;
   "apply apps")
     set -x
-    eval terraform apply "$APPS" "$CORE"
-    eval terraform apply "$APPS" "$MAILER"
+    eval terraform apply "$CORE"
+    eval terraform apply "$MAILER"
+    eval terraform apply "$GROUP_MAILER"
     ;;
   "apply seeder")
     set -x

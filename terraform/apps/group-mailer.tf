@@ -1,8 +1,8 @@
-module "mailer_app" {
+module "group_mailer_app" {
   source = "./docker-node-app"
-  name = "mailer"
-  docker_image = "rabblerouser/mailer"
-  port = "3001"
+  name = "group-mailer"
+  docker_image = "rabblerouser/group-mailer"
+  port = "3002"
   host_ip = "${var.host_ip}"
   docker_api_key = "${var.docker_api_key}"
   docker_api_ca = "${var.docker_api_ca}"
@@ -18,9 +18,9 @@ module "mailer_app" {
   env = ["S3_EMAILS_BUCKET=${var.mail_bucket_name}"]
 }
 
-resource "aws_iam_user_policy" "mailer_read_mail_bucket" {
-  name = "mailer_read_mail_bucket"
-  user =  "${module.mailer_app.aws_user_name}"
+resource "aws_iam_user_policy" "group_mailer_read_mail_bucket" {
+  name = "group_mailer_read_mail_bucket"
+  user =  "${module.group_mailer_app.aws_user_name}"
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -42,19 +42,4 @@ resource "aws_iam_user_policy" "mailer_read_mail_bucket" {
 EOF
 }
 
-resource "aws_iam_user_policy" "mailer_send_ses_email" {
-  name = "send_ses_email"
-  user = "${module.mailer_app.aws_user_name}"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [{
-      "Effect": "Allow",
-      "Action": "ses:SendEmail",
-      "Resource": "*"
-  }]
-}
-EOF
-}
-
-# NOTE: If you add more resources here, they need to be added to the $MAILER variable in the tf shell script
+# NOTE: If you add more resources here, they need to be added to the $GROUP_MAILER variable in the tf shell script
