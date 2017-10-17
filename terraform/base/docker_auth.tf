@@ -6,7 +6,7 @@ resource "tls_self_signed_cert" "docker_ca" {
   key_algorithm = "${tls_private_key.docker_key.algorithm}"
   private_key_pem = "${tls_private_key.docker_key.private_key_pem}"
   subject {
-    common_name = "docker-ca.${var.domain}"
+    common_name = "${var.domain}"
   }
   ip_addresses = ["${aws_eip.eip.public_ip}"]
   validity_period_hours = "43800" # 5 years
@@ -24,7 +24,7 @@ resource "tls_cert_request" "docker_cert_request" {
   key_algorithm = "${tls_private_key.docker_key.algorithm}"
   private_key_pem = "${tls_private_key.docker_key.private_key_pem}"
   subject {
-    common_name = "docker.${var.domain}"
+    common_name = "${var.domain}"
   }
   ip_addresses = ["${aws_eip.eip.public_ip}"]
 }

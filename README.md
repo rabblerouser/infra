@@ -30,6 +30,26 @@ cd terraform
 ./tf
 ```
 
+## Reading the app logs
+
+See the next section on how to run arbitrary docker commands against the docker daemon running on the remote server.
+
+## Run docker commands remotely
+The EC2 instance has the docker remote API enabled, and you can interact with it using the regular docker client, just
+like you would when working with images and containers on your own machine. First run this command, which will set up
+a `dockerx` alias that's configured to run against the remote docker daemon:
+
+```sh
+cd terraform
+source enable-remote-docker.sh
+```
+
+Now you can use the alias to do things like watch the logs for a particular app:
+
+```sh
+dockerx logs -f group-mailer
+```
+
 ## SSH Access
 
 If the EC2 instance exists and your SSH public key is on it, you can use this helper script:
