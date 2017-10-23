@@ -2,6 +2,10 @@
 
 set -e
 
+function echo_done() {
+  echo -e '\033[0;32mDone!\033[0m'
+}
+
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   echo -e '\033[0;31mError:\033[0m It looks like you are executing this script directly.'
   echo 'Instead, you need to source it, like this:'
@@ -18,23 +22,23 @@ CERT_PATH='./docker-cert.pem'
 KEY_PATH='./docker-key.pem'
 
 printf '[1/5] CA... '
-terraform output docker_api_ca > "${CA_PATH}"
-echo -e '\033[0;32mDone!\033[0m'
+[[ ! -e "${CA_PATH}" ]] && terraform output docker_api_ca > "${CA_PATH}"
+echo_done
 printf '[2/5] Cert... '
-terraform output docker_api_cert > "${CERT_PATH}"
-echo -e '\033[0;32mDone!\033[0m'
+[[ ! -e "${CERT_PATH}" ]] && terraform output docker_api_cert > "${CERT_PATH}"
+echo_done
 printf '[3/5] Key... '
-terraform output docker_api_key > "${KEY_PATH}"
-echo -e '\033[0;32mDone!\033[0m'
+[[ ! -e "${KEY_PATH}" ]] && terraform output docker_api_key > "${KEY_PATH}"
+echo_done
 
 printf '[4/5] Reading remote server IP address... '
 SERVER_IP=`terraform output host_ip`
-echo -e '\033[0;32mDone!\033[0m'
+echo_done
 
 printf '[5/5] Generating alias and verifying... '
 alias dockerx="docker --tlsverify -H=${SERVER_IP}:2376 --tlscacert=${CA_PATH} --tlscert=${CERT_PATH} --tlskey=${KEY_PATH}"
 dockerx ps > /dev/null
-echo -e '\033[0;32mDone!\033[0m'
+echo_done
 
 echo 'You can now execute docker commands against the remote API using `dockerx`. For example:'
 echo -e '    \033[1mdockerx ps\033[0m'
