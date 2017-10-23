@@ -12,6 +12,7 @@ module base {
   source = "./base"
   route53_zone_id = "${var.route53_zone_id}"
   tls_cert_email = "${var.tls_cert_email}"
+  ses_region = "${var.ses_region}"
   domain = "${var.domain}"
   private_key_path = "${var.private_key_path}"
 }
@@ -32,8 +33,8 @@ module apps {
   archive_bucket_arn = "${module.base.archive_bucket_arn}"
   archive_bucket_name = "${module.base.archive_bucket_name}"
   ses_region = "${var.ses_region}"
-  mail_bucket_arn = "arn:aws:s3:::${var.domain}-mail-storage" #TODO: Look up from the actual bucket resource
-  mail_bucket_name = "${var.domain}-mail-storage" #TODO: Look up from the actual bucket resource
+  mail_bucket_arn = "${module.base.mail_bucket_arn}"
+  mail_bucket_name = "${module.base.mail_bucket_name}"
 }
 
 module seeder {

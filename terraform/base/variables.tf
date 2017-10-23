@@ -28,6 +28,11 @@ variable "region" {
   default = "ap-southeast-2"
 }
 
+variable "ses_region" {
+  description = "The AWS region where SES will be used. SES region availability is quite limited"
+  default = "us-east-1"
+}
+
 variable "ubuntu" {
   description = "Ubuntu 16.04 (HVM, EBS). Sourced from https://cloud-images.ubuntu.com/locator/ec2/"
   type = "map"
