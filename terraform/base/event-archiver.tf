@@ -17,7 +17,7 @@ resource "aws_lambda_function" "event_archiver" {
   function_name = "event_archiver"
   handler = "index.handler"
   role = "${aws_iam_role.event_archiver_role.arn}"
-  runtime = "nodejs4.3"
+  runtime = "nodejs6.10"
   environment = {
     variables = {
       ARCHIVE_BUCKET = "${aws_s3_bucket.event_archive_bucket.id}"

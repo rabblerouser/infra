@@ -33,7 +33,7 @@ resource "aws_lambda_function" "event_forwarder" {
   function_name = "${var.name}_event_forwarder"
   handler = "index.handler"
   role = "${aws_iam_role.event_forwarder_role.arn}"
-  runtime = "nodejs4.3"
+  runtime = "nodejs6.10"
   environment = {
     variables = {
       LISTENER_ENDPOINT = "${var.forward_to}"
