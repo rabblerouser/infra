@@ -6,7 +6,7 @@ Code for spinning up Rabble Rouser infrastructure and deploying applications.
 
 Before you get started, you'll need to install a couple of dependencies first:
 
-1. [Terraform 0.9.x](https://www.terraform.io/intro/getting-started/install.html) (For MacOS it's just: `brew install terraform`)
+1. [Terraform 0.10.x](https://www.terraform.io/intro/getting-started/install.html) (For MacOS it's just: `brew install terraform`)
 2. [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) (For MacOs it's just: `brew install awscli`)
 
 ## Working with an existing environment
