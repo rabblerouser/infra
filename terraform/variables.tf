@@ -27,3 +27,8 @@ variable "region" {
   description = "The AWS region to create all the infrastructure in"
   default = "ap-southeast-2"
 }
+
+variable "ses_region" {
+  description = "The AWS region where SES will be used. SES region availability is quite limited"
+  default = "us-east-1"
+}

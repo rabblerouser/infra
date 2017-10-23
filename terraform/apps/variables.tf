@@ -58,6 +58,11 @@ variable "archive_bucket_name" {
   type = "string"
 }
 
+variable "ses_region" {
+  description = "The AWS region where SES will be used. SES region availability is quite limited"
+  default = "us-east-1"
+}
+
 variable "mail_bucket_arn" {
   description = "The ARN of the mail storage bucket"
   type = "string"

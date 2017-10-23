@@ -31,6 +31,7 @@ module apps {
   stream_name = "${module.base.stream_name}"
   archive_bucket_arn = "${module.base.archive_bucket_arn}"
   archive_bucket_name = "${module.base.archive_bucket_name}"
+  ses_region = "${var.ses_region}"
   mail_bucket_arn = "arn:aws:s3:::${var.domain}-mail-storage" #TODO: Look up from the actual bucket resource
   mail_bucket_name = "${var.domain}-mail-storage" #TODO: Look up from the actual bucket resource
 }
