@@ -72,3 +72,8 @@ variable "mail_bucket_name" {
   description = "The name of the mail storage bucket"
   type = "string"
 }
+
+variable "group_mail_receiver_auth_token" {
+  description = "The token used to authenticate requests from the group-mail-receiver to the group-mailer"
+  type = "string"
+}

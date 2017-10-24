@@ -37,3 +37,7 @@ output "docker_api_ca" {
 output "docker_api_cert" {
   value = "${tls_locally_signed_cert.docker_cert.cert_pem}"
 }
+
+output "group_mail_receiver_auth_token" {
+  value = "${module.group_mail_receiver.auth_token}"
+}

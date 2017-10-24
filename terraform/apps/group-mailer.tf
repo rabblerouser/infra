@@ -15,7 +15,10 @@ module "group_mailer_app" {
   private_key_path = "${var.private_key_path}"
   stream_name = "${var.stream_name}"
   archive_bucket_name = "${var.archive_bucket_name}"
-  env = ["S3_EMAILS_BUCKET=${var.mail_bucket_name}"]
+  env = [
+    "S3_EMAILS_BUCKET=${var.mail_bucket_name}",
+    "GROUP_MAIL_RECEIVER_AUTH_TOKEN=${var.group_mail_receiver_auth_token}"
+  ]
 }
 
 resource "aws_iam_user_policy" "group_mailer_read_mail_bucket" {
