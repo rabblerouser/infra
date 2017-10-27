@@ -37,44 +37,49 @@ MAILER="--target module.apps.module.mailer_app --target module.apps.aws_iam_user
 GROUP_MAILER="--target module.apps.module.group_mailer_app --target module.apps.aws_iam_user_policy.group_mailer_read_mail_bucket"
 SEED="--target module.seeder"
 
+function run_terraform() {
+  # The sed command is to hide RSA keys/certs from stdout
+  eval terraform $@ | sed '/-----BEGIN/,/-----END/d'
+}
+
 case "$1 $2" in
   "plan ")
     set -x
-    eval terraform plan
+    run_terraform plan
     ;;
   "plan base")
     set -x
-    eval terraform plan "$BASE"
+    run_terraform plan "$BASE"
     ;;
   "plan apps")
     set -x
-    eval terraform plan "$APPS"
+    run_terraform plan "$APPS"
     ;;
   "plan seeder")
     set -x
-    eval terraform plan "$SEED"
+    run_terraform plan "$SEED"
     ;;
 
   "apply ")
     set -x
-    eval terraform apply "$BASE"
-    eval terraform apply "$CORE"
-    eval terraform apply "$MAILER"
-    eval terraform apply "$GROUP_MAILER"
+    run_terraform apply "$BASE"
+    run_terraform apply "$CORE"
+    run_terraform apply "$MAILER"
+    run_terraform apply "$GROUP_MAILER"
     ;;
   "apply base")
     set -x
-    eval terraform apply "$BASE"
+    run_terraform apply "$BASE"
     ;;
   "apply apps")
     set -x
-    eval terraform apply "$CORE"
-    eval terraform apply "$MAILER"
-    eval terraform apply "$GROUP_MAILER"
+    run_terraform apply "$CORE"
+    run_terraform apply "$MAILER"
+    run_terraform apply "$GROUP_MAILER"
     ;;
   "apply seeder")
     set -x
-    eval terraform apply "$SEED"
+    run_terraform apply "$SEED"
     ;;
   *)
     usage
