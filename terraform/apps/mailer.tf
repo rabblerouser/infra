@@ -53,7 +53,10 @@ resource "aws_iam_user_policy" "mailer_send_ses_email" {
   "Version": "2012-10-17",
   "Statement": [{
       "Effect": "Allow",
-      "Action": "ses:SendEmail",
+      "Action": [
+        "ses:SendEmail",
+        "ses:SendRawEmail"
+      ],
       "Resource": "*"
   }]
 }
