@@ -17,9 +17,10 @@ echo 'This script will enable an alias for running docker against a remote serve
 echo 'Writing docker credentials to local files...'
 echo
 
-CA_PATH='./docker-ca.pem'
-CERT_PATH='./docker-cert.pem'
-KEY_PATH='./docker-key.pem'
+CA_PATH='.tf_remote_files/docker-ca.pem'
+CERT_PATH='.tf_remote_files/docker-cert.pem'
+KEY_PATH='.tf_remote_files/docker-key.pem'
+SERVER_IP_PATH='.tf_remote_files/server-ip'
 
 printf '[1/5] CA... '
 [[ ! -e "${CA_PATH}" ]] && terraform output docker_api_ca > "${CA_PATH}"
@@ -32,7 +33,8 @@ printf '[3/5] Key... '
 echo_done
 
 printf '[4/5] Reading remote server IP address... '
-SERVER_IP=`terraform output host_ip`
+[[ ! -e "${SERVER_IP_PATH}" ]] && terraform output host_ip > "${SERVER_IP_PATH}"
+SERVER_IP=`cat ${SERVER_IP_PATH}`
 echo_done
 
 printf '[5/5] Generating alias and verifying... '
