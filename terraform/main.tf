@@ -5,7 +5,20 @@ terraform {
 }
 
 provider "aws" {
+  version = "~> 1.1.0"
   region = "${var.region}"
+}
+
+provider "null" {
+  version = "~> 1.0.0"
+}
+
+provider "random" {
+  version = "~> 1.0.0"
+}
+
+provider "tls" {
+  version = "~> 1.0.0"
 }
 
 module base {

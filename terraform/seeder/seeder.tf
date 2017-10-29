@@ -1,4 +1,5 @@
 provider "docker" {
+  version = "~> 0.1.0"
   host = "tcp://${var.host_ip}:2376"
   key_material = "${var.docker_api_key}"
   ca_material = "${var.docker_api_ca}"
