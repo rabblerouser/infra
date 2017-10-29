@@ -21,10 +21,21 @@ provider "tls" {
   version = "~> 1.0.0"
 }
 
+data "aws_route53_zone" "parent_hosted_zone" {
+  # Determine parent domain: split FQDN on '.', then drop the first element, then join on '.' again
+  # This is pretty hairy, but it works, and it means *everything* can be configured from just `var.domain` alone!
+  name = "${join(".", slice(split(".", var.domain), 1, length(split(".", var.domain))))}"
+}
+
+locals {
+  route53_zone_id = "${data.aws_route53_zone.parent_hosted_zone.zone_id}"
+  tls_cert_email = "admin@${var.domain}"
+}
+
 module base {
   source = "./base"
-  route53_zone_id = "${var.route53_zone_id}"
-  tls_cert_email = "${var.tls_cert_email}"
+  route53_zone_id = "${local.route53_zone_id}"
+  tls_cert_email = "${local.tls_cert_email}"
   ses_region = "${var.ses_region}"
   domain = "${var.domain}"
   private_key_path = "${var.private_key_path}"
@@ -33,8 +44,8 @@ module base {
 module apps {
   source = "./apps"
   domain = "${var.domain}"
-  route53_zone_id = "${var.route53_zone_id}"
-  tls_cert_email = "${var.tls_cert_email}"
+  route53_zone_id = "${local.route53_zone_id}"
+  tls_cert_email = "${local.tls_cert_email}"
   private_key_path = "${var.private_key_path}"
 
   host_ip = "${module.base.host_ip}"

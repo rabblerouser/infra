@@ -1,4 +1,5 @@
-# These variables have no default values and must be supplied
-route53_zone_id = "Z9RKBE4ELV06K"
-tls_cert_email = "webmaster@rr-staging.click"
+# This is the only variable that must be supplied by the developer.
+# Each organisation will want to change this value to their own domain.
+# Not sure how to manage those changes yet, other than to tell people to
+# use environment variables (or CLI args) instead.
 domain = "demo.rr-staging.click"

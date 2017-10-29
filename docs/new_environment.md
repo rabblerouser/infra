@@ -22,8 +22,7 @@ There are a few AWS resources that can't be automagically created with terraform
 1. A Route53 hosted zone:
 
     Currently everything has to be deployed in a subdomain of an existing Route53 domain. For example, you could deploy
-    your new instance at rabblerouser.example.com, but first you would need to manually set up a Route53 hosted
-    zone for example.com.
+    your new instance at rabblerouser.example.com, and first you need to manually set up a Route53 zone for example.com.
 
 2. An S3 bucket:
 
@@ -76,23 +75,27 @@ If you work with git, you likely have an SSH key pair set up already, otherwise 
 either case, make sure they're in the usual locations: `~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub`.
 
 ## Configure your environment
+There is only a single variable that you have to configure up-front: the domain that you're deploying Rabble Rouser into.
+Recall from earlier that your choice here is limited to choosing a subdomain of a hosted zone that you have already
+created in Route53.
 
-There are only three variables that you have to configure up-front - everything else is either auto-generated or has
-reasonable defaults. Open up the file [`terraform/terraform.tfvars`](../terraform/terraform.tfvars), and update the
-three values in there for your new environment. The variables themselves are described in [`terraform/variables.tf`](../terraform/variables.tf),
-and in there you will also find a few other variables that you can configure if you don't like the defaults. For example
-the key pair locations mentioned above, or the AWS region where your infrastructure will be created.
-
-Managing each organisation's customisations to this source-controlled file is currently an unsolved problem. However one
-alternative is to leave that file as-is, and instead override the values at the CLI level using environment variables:
+The quickest way to configure it is with an environment variable:
 
 ```sh
-TF_VAR_route53_zone_id="ABC123"
-TF_VAR_tls_cert_email="admin@rabblerouser.example.com"
 TF_VAR_domain="rabblerouser.example.com"
 
-# Now do something with terraform
+# Now run your terraform commands
 ```
+
+Note that you should **not** specify a trailing period in the domain.
+
+To save you having to set the environment variable in every terminal session, you can also supply the value in the file
+[`terraform/terraform.tfvars`](../terraform/terraform.tfvars), overriding the default (which specifies the Rabble Rouser
+team's own staging environment). However, this file is checked into git, and we don't yet have a good way to manage each
+deployment's customisations to this file.
+
+All other configuration is either auto-generated or has sensible defaults. There are additional variables listed in the
+file [`terraform/variables.tf`](../terraform/variables.tf), which can all be overridden as above.
 
 ## Create the base infrastructure
 
