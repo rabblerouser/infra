@@ -8,6 +8,22 @@ Before you get started, you'll need to install a couple of dependencies first:
 
 1. [Terraform 0.10.x](https://www.terraform.io/intro/getting-started/install.html) (For MacOS it's just: `brew install terraform`)
 2. [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) (For MacOs it's just: `brew install awscli`)
+3. [ACME plugin for Terraform](https://github.com/paybyphone/terraform-provider-acme)
+
+    This one you need to download and extract manually:
+
+    ```sh
+    # 1. Make sure plugin directory exists:
+    mkdir -p ~/.terraform.d/plugins
+    pushd ~/.terraform.d/plugins
+    # 2a. Download for Mac
+    wget -O acme-provider-v0.4.0.zip https://github.com/paybyphone/terraform-provider-acme/releases/download/v0.4.0/terraform-provider-acme_v0.4.0_darwin_amd64.zip
+    # 2b. Download for Linux
+    #wget -O acme-provider-v0.4.0.zip https://github.com/paybyphone/terraform-provider-acme/releases/download/v0.4.0/terraform-provider-acme_v0.4.0_linux_amd64.zip
+    # 3. Unzip plugin:
+    unzip acme-provider-v0.4.0.zip
+    popd
+    ```
 
 ## Working with an existing environment
 
