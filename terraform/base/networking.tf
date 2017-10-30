@@ -3,12 +3,12 @@ resource "aws_route53_record" "bare_domain" {
   zone_id = "${var.route53_zone_id}"
   name = "${var.domain}"
   type = "A"
-  ttl = "300" # seconds
-  records = ["${aws_eip.eip.public_ip}"]
-}
 
-resource "aws_eip" "eip" {
-  instance = "${aws_instance.web.id}"
+  alias {
+    name = "${aws_lb.load_balancer.dns_name}"
+    zone_id = "${aws_lb.load_balancer.zone_id}"
+    evaluate_target_health = false
+  }
 }
 
 # The next two resources just look up the default VPC and its subnets, so we can reference them elsewhere

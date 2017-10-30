@@ -49,6 +49,8 @@ module apps {
   private_key_path = "${var.private_key_path}"
 
   host_ip = "${module.base.host_ip}"
+  alb_dns_name = "${module.base.alb_dns_name}"
+  alb_zone_id = "${module.base.alb_zone_id}"
   docker_api_key = "${module.base.docker_api_key}"
   docker_api_ca = "${module.base.docker_api_ca}"
   docker_api_cert = "${module.base.docker_api_cert}"

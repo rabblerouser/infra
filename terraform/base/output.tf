@@ -1,5 +1,13 @@
 output "host_ip" {
-  value = "${aws_eip.eip.public_ip}"
+  value = "${aws_instance.web.public_ip}"
+}
+
+output "alb_dns_name" {
+  value = "${aws_lb.load_balancer.dns_name}"
+}
+
+output "alb_zone_id" {
+  value = "${aws_lb.load_balancer.zone_id}"
 }
 
 output "stream_arn" {
