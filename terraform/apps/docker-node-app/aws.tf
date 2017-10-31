@@ -3,8 +3,12 @@ resource "aws_route53_record" "app_domain" {
   zone_id = "${var.route53_parent_zone_id}"
   name = "${var.name}.${var.parent_domain_name}"
   type = "A"
-  ttl = "300" # seconds
-  records = ["${var.host_ip}"]
+
+  alias {
+    name = "${var.alb_dns_name}"
+    zone_id = "${var.alb_zone_id}"
+    evaluate_target_health = false
+  }
 }
 
 resource "aws_iam_user" "app_user" {

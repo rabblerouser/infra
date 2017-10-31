@@ -8,7 +8,7 @@ resource "tls_self_signed_cert" "docker_ca" {
   subject {
     common_name = "${var.domain}"
   }
-  ip_addresses = ["${aws_eip.eip.public_ip}"]
+  ip_addresses = ["${aws_instance.web.public_ip}"]
   validity_period_hours = "43800" # 5 years
   is_ca_certificate = true
   allowed_uses = [
@@ -26,7 +26,7 @@ resource "tls_cert_request" "docker_cert_request" {
   subject {
     common_name = "${var.domain}"
   }
-  ip_addresses = ["${aws_eip.eip.public_ip}"]
+  ip_addresses = ["${aws_instance.web.public_ip}"]
 }
 
 resource "tls_locally_signed_cert" "docker_cert" {

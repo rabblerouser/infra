@@ -4,6 +4,8 @@ module "core_app" {
   docker_image = "rabblerouser/core"
   port = "3000"
   host_ip = "${var.host_ip}"
+  alb_dns_name = "${var.alb_dns_name}"
+  alb_zone_id = "${var.alb_zone_id}"
   docker_api_key = "${var.docker_api_key}"
   docker_api_ca = "${var.docker_api_ca}"
   docker_api_cert = "${var.docker_api_cert}"

@@ -4,6 +4,8 @@ module "group_mailer_app" {
   docker_image = "rabblerouser/group-mailer"
   port = "3002"
   host_ip = "${var.host_ip}"
+  alb_dns_name = "${var.alb_dns_name}"
+  alb_zone_id = "${var.alb_zone_id}"
   docker_api_key = "${var.docker_api_key}"
   docker_api_ca = "${var.docker_api_ca}"
   docker_api_cert = "${var.docker_api_cert}"

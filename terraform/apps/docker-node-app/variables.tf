@@ -24,6 +24,16 @@ variable "host_ip" {
   type = "string"
 }
 
+variable "alb_dns_name" {
+  description = "The DNS name assigned to the application load balancer"
+  type = "string"
+}
+
+variable "alb_zone_id" {
+  description = "The canonical hosted zone ID of the ALB"
+  type = "string"
+}
+
 variable "docker_api_key" {
   description = "The private key used to authenticate with the docker remote API"
   type = "string"
