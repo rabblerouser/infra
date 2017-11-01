@@ -38,7 +38,6 @@ data "aws_subnet_ids" "default_vpc_subnets" {
 
 locals {
   route53_zone_id = "${data.aws_route53_zone.parent_hosted_zone.zone_id}"
-  tls_cert_email = "admin@${var.domain}"
 }
 
 module base {
@@ -46,7 +45,6 @@ module base {
   route53_zone_id = "${local.route53_zone_id}"
   vpc_id = "${data.aws_vpc.default_vpc.id}"
   vpc_subnet_ids = "${data.aws_subnet_ids.default_vpc_subnets.ids}"
-  tls_cert_email = "${local.tls_cert_email}"
   ses_region = "${var.ses_region}"
   domain = "${var.domain}"
   private_key_path = "${var.private_key_path}"
@@ -56,8 +54,6 @@ module apps {
   source = "./apps"
   domain = "${var.domain}"
   route53_zone_id = "${local.route53_zone_id}"
-  tls_cert_email = "${local.tls_cert_email}"
-  private_key_path = "${var.private_key_path}"
 
   vpc_id = "${data.aws_vpc.default_vpc.id}"
   host_ip = "${module.base.host_ip}"

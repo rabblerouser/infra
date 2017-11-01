@@ -24,4 +24,3 @@
       cert: "{{ lookup('env', 'DOCKER_API_CERT') }}"
     - role: angstwad.docker_ubuntu
       docker_opts: "-H tcp://0.0.0.0:2376 --tlsverify --tlskey /docker/key.pem --tlscacert /docker/ca.pem --tlscert /docker/cert.pem"
-    - { role: nginx }

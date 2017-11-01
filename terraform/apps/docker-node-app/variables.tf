@@ -98,13 +98,3 @@ variable "route53_parent_zone_id" {
   description = "The ID of the Route53 Zone that contains the parent domain"
   type = "string"
 }
-
-variable "tls_cert_email" {
-  description = "The email under which to register the TLS cert. E.g. webmaster@rabblerouser.team"
-  type = "string"
-}
-
-variable "private_key_path" {
-  description = "Private key to be used for ansible provisioning"
-  type = "string"
-}

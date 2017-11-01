@@ -8,16 +8,6 @@ variable "route53_zone_id" {
   type = "string"
 }
 
-variable "tls_cert_email" {
-  description = "The email under which to register the TLS cert. E.g. webmaster@rabblerouser.team"
-  type = "string"
-}
-
-variable "private_key_path" {
-  description = "Private key to be used for ansible provisioning"
-  type = "string"
-}
-
 variable "vpc_id" {
   description = "The ID of the VPC where the app should be deployed"
   type = "string"

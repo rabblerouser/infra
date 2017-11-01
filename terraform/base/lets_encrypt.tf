@@ -5,7 +5,7 @@ resource "tls_private_key" "lets_encrypt_private_key" {
 resource "acme_registration" "lets_encrypt_registration" {
   server_url = "https://acme-v01.api.letsencrypt.org/directory"
   account_key_pem = "${tls_private_key.lets_encrypt_private_key.private_key_pem}"
-  email_address = "${var.tls_cert_email}"
+  email_address = "admin@${var.domain}"
 }
 
 resource "acme_certificate" "tls_cert" {

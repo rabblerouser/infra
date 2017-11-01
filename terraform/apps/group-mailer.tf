@@ -17,8 +17,6 @@ module "group_mailer_app" {
   archive_bucket_arn = "${var.archive_bucket_arn}"
   parent_domain_name = "${var.domain}"
   route53_parent_zone_id = "${var.route53_zone_id}"
-  tls_cert_email = "${var.tls_cert_email}"
-  private_key_path = "${var.private_key_path}"
   stream_name = "${var.stream_name}"
   archive_bucket_name = "${var.archive_bucket_name}"
   env = [

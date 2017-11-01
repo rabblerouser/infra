@@ -13,11 +13,6 @@ variable "vpc_subnet_ids" {
   type = "list"
 }
 
-variable "tls_cert_email" {
-  description = "The email under which to register the TLS cert. E.g. webmaster@rabblerouser.team"
-  type = "string"
-}
-
 variable "domain" {
   description = "The domain where you want your Rabble Rouser instance to live. Must be valid for the host zone where it will be created. E.g. if the hosted zone is example.com, then this variable might be set to 'rabblerouser.example.com'. Do not include a trailing period on the end of the domain name."
   type = "string"

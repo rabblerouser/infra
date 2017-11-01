@@ -2,16 +2,9 @@
 
 ## Check the logs!
 
-For any problem where the app isn't working properly, you may want to check the server logs. First you need to ssh on to
-the server ([see here](../README.md#ssh-access) for how), then these commands might be useful:
-
- - `sudo journalctl -fu docker`: tail the docker daemon logs
- - `sudo tail -f /var/log/nginx/access.log`: tail the nginx access logs
- - `sudo tail -f /var/log/nginx/error.log`: tail the nginx error logs
- - `sudo docker logs -f <container>`: tail the application logs for a particular container
-
-Bonus command: Use `sudo docker ps` to see the currently running docker containers. Add `-a` to see stopped containers
-too, which are often (but not always) crashed apps.
+For any problem where the app isn't working properly, you may want to check the application logs. For Dockerised apps
+running on the EC2 instance, see [see here](../README.md#reading-the-app-logs). For lambdas, log into the AWS console
+and find their logs in Cloudwatch.
 
 ## Common issues
 
@@ -48,9 +41,9 @@ and check what instances are there.
 
 ### 502 Bad Gateway
 
-This usually means that you are successfully connecting to the nginx proxy running on the server, but that nginx is not
-getting a valid response from the application. I.e., the application (docker container) might have crashed, or it might
-not have been deployed at all yet.
+This usually means that you are successfully connecting to the elastic load balancer, but that the ELB is not getting a
+valid response from the application. I.e., the application (docker container) might have crashed, or it might not have
+been deployed at all yet.
 
 ### The app loads but I can't sign up a new member
 
