@@ -34,38 +34,33 @@ BASE="--target module.base"
 APPS="--target module.apps"
 SEED="--target module.seeder"
 
-function run_terraform() {
-  # The sed command is to hide RSA keys/certs from stdout
-  eval terraform $@ | sed '/-----BEGIN/,/-----END/d'
-}
-
 case "$1 $2" in
   "plan ")
-  run_terraform plan "$BASE"
-  run_terraform plan "$APPS"
+  eval terraform plan "$BASE"
+  eval terraform plan "$APPS"
     ;;
   "plan base")
-    run_terraform plan "$BASE"
+    eval terraform plan "$BASE"
     ;;
   "plan apps")
-    run_terraform plan "$APPS"
+    eval terraform plan "$APPS"
     ;;
   "plan seeder")
-    run_terraform plan "$SEED"
+    eval terraform plan "$SEED"
     ;;
 
   "apply ")
-    run_terraform apply "$BASE"
-    run_terraform apply "$APPS"
+    eval terraform apply "$BASE"
+    eval terraform apply "$APPS"
     ;;
   "apply base")
-    run_terraform apply "$BASE"
+    eval terraform apply "$BASE"
     ;;
   "apply apps")
-    run_terraform apply "$APPS"
+    eval terraform apply "$APPS"
     ;;
   "apply seeder")
-    run_terraform apply "$SEED"
+    eval terraform apply "$SEED"
     ;;
   *)
     usage
