@@ -8,28 +8,8 @@ variable "route53_zone_id" {
   type = "string"
 }
 
-variable "vpc_id" {
-  description = "The ID of the VPC where the app should be deployed"
-  type = "string"
-}
-
-variable "host_ip" {
-  description = "The IP address of the host where the app should be deployed"
-  type = "string"
-}
-
 variable "aws_instance_id" {
   description = "The ID of the EC2 instance where this app should be deployed"
-  type = "string"
-}
-
-variable "alb_dns_name" {
-  description = "The DNS name assigned to the application load balancer"
-  type = "string"
-}
-
-variable "alb_zone_id" {
-  description = "The canonical hosted zone ID of the ALB"
   type = "string"
 }
 
@@ -38,33 +18,13 @@ variable "alb_listener_arn" {
   type = "string"
 }
 
-variable "docker_api_key" {
-  description = "The private key used to authenticate with the docker remote API"
-  type = "string"
-}
-
-variable "docker_api_ca" {
-  description = "The CA cert used to authenticate with the docker remote API"
-  type = "string"
-}
-
-variable "docker_api_cert" {
-  description = "The cert used to authenticate with the docker remote API"
-  type = "string"
-}
-
-variable "stream_arn" {
-  description = "The ARN of the kinesis event stream"
-  type = "string"
+variable "docker_credentials" {
+  description = "The key, ca, and cert PEMs used to authenticate with the remote Docker daemon"
+  type = "map"
 }
 
 variable "stream_name" {
   description = "The name of the kinesis event stream"
-  type = "string"
-}
-
-variable "archive_bucket_arn" {
-  description = "The ARN of the event archive bucket"
   type = "string"
 }
 

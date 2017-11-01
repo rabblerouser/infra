@@ -15,7 +15,7 @@ resource "aws_iam_user_policy" "seeder_put_to_stream" {
   "Statement": [{
       "Effect": "Allow",
       "Action": "kinesis:PutRecord",
-      "Resource": "${var.stream_arn}"
+      "Resource": "${data.aws_kinesis_stream.stream.arn}"
   }]
 }
 EOF

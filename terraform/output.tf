@@ -3,15 +3,15 @@ output host_ip {
 }
 
 output "docker_api_key" {
-  value = "${module.base.docker_api_key}"
+  value = "${module.base.docker_credentials["key"]}"
 }
 
 output "docker_api_ca" {
-  value = "${module.base.docker_api_ca}"
+  value = "${module.base.docker_credentials["ca"]}"
 }
 
 output "docker_api_cert" {
-  value = "${module.base.docker_api_cert}"
+  value = "${module.base.docker_credentials["cert"]}"
 }
 
 ###########################################################

@@ -1,9 +1,9 @@
 provider "docker" {
   version = "~> 0.1.0"
-  host = "tcp://${var.host_ip}:2376"
-  key_material = "${var.docker_api_key}"
-  ca_material = "${var.docker_api_ca}"
-  cert_material = "${var.docker_api_cert}"
+  host = "tcp://${data.aws_instance.instance.public_ip}:2376"
+  key_material = "${var.docker_credentials["key"]}"
+  ca_material = "${var.docker_credentials["ca"]}"
+  cert_material = "${var.docker_credentials["cert"]}"
 }
 
 data "docker_registry_image" "app_image" {

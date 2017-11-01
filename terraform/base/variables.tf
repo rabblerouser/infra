@@ -3,16 +3,6 @@ variable "route53_zone_id" {
   type = "string"
 }
 
-variable "vpc_id" {
-  description = "The ID of the VPC where the app should be deployed"
-  type = "string"
-}
-
-variable "vpc_subnet_ids" {
-  description = "The IDs of the subnets of the above VPC. One per AZ"
-  type = "list"
-}
-
 variable "domain" {
   description = "The domain where you want your Rabble Rouser instance to live. Must be valid for the host zone where it will be created. E.g. if the hosted zone is example.com, then this variable might be set to 'rabblerouser.example.com'. Do not include a trailing period on the end of the domain name."
   type = "string"

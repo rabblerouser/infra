@@ -5,8 +5,8 @@ resource "aws_route53_record" "app_domain" {
   type = "A"
 
   alias {
-    name = "${var.alb_dns_name}"
-    zone_id = "${var.alb_zone_id}"
+    name = "${data.aws_lb.alb.dns_name}"
+    zone_id = "${data.aws_lb.alb.zone_id}"
     evaluate_target_health = false
   }
 }
@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "alb_target_group" {
   name = "rr-alb-${var.name}-target-group"
   port = "${var.port}"
   protocol = "HTTP"
-  vpc_id = "${var.vpc_id}"
+  vpc_id = "${data.aws_vpc.default_vpc.id}"
 }
 
 resource "aws_lb_target_group_attachment" "alb_target_attachment" {

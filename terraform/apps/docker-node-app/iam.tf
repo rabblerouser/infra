@@ -15,7 +15,7 @@ resource "aws_iam_user_policy" "app_put_to_stream" {
   "Statement": [{
       "Effect": "Allow",
       "Action": "kinesis:PutRecord",
-      "Resource": "${var.stream_arn}"
+      "Resource": "${data.aws_kinesis_stream.stream.arn}"
   }]
 }
 EOF
@@ -31,14 +31,14 @@ resource "aws_iam_user_policy" "app_read_archive_bucket" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": "${var.archive_bucket_arn}"
+      "Resource": "${data.aws_s3_bucket.archive_bucket.arn}"
     },
     {
       "Effect": "Allow",
       "Action": [
         "s3:GetObject"
       ],
-      "Resource": "${var.archive_bucket_arn}/*"
+      "Resource": "${data.aws_s3_bucket.archive_bucket.arn}/*"
     }
   ]
 }

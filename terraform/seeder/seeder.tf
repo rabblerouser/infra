@@ -1,9 +1,13 @@
 provider "docker" {
   version = "~> 0.1.0"
   host = "tcp://${var.host_ip}:2376"
-  key_material = "${var.docker_api_key}"
-  ca_material = "${var.docker_api_ca}"
-  cert_material = "${var.docker_api_cert}"
+  key_material = "${var.docker_credentials["key"]}"
+  ca_material = "${var.docker_credentials["ca"]}"
+  cert_material = "${var.docker_credentials["cert"]}"
+}
+
+data "aws_kinesis_stream" "stream" {
+  name = "${var.stream_name}"
 }
 
 data "docker_registry_image" "seeder_image" {
