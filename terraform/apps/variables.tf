@@ -18,8 +18,18 @@ variable "private_key_path" {
   type = "string"
 }
 
+variable "vpc_id" {
+  description = "The ID of the VPC where the app should be deployed"
+  type = "string"
+}
+
 variable "host_ip" {
   description = "The IP address of the host where the app should be deployed"
+  type = "string"
+}
+
+variable "aws_instance_id" {
+  description = "The ID of the EC2 instance where this app should be deployed"
   type = "string"
 }
 
@@ -30,6 +40,11 @@ variable "alb_dns_name" {
 
 variable "alb_zone_id" {
   description = "The canonical hosted zone ID of the ALB"
+  type = "string"
+}
+
+variable "alb_listener_arn" {
+  description = "The ARN of the ALB listener"
   type = "string"
 }
 

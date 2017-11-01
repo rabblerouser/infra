@@ -1,14 +1,12 @@
 - name: install ufw
   apt: name=ufw
 
-- name: open port 22
-  ufw: rule=allow port=22 proto=tcp
-
-- name: open port 443
-  ufw: rule=allow port=443 proto=tcp
-
-- name: open port 2376
-  ufw: rule=allow port=2376 proto=tcp
+- name: open ports
+  ufw:
+    rule: allow
+    proto: tcp
+    port: "{{ item }}"
+  with_items: "{{ allowed_ports }}"
 
 - name: enable ufw
   ufw: state=enabled policy=deny

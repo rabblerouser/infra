@@ -6,7 +6,15 @@
       - name: Gather facts
         setup:
   roles:
-    - { role: firewall }
+    - role: firewall
+      allowed_ports:
+        - '22'
+        - '80'
+        - '443'
+        - '3000'
+        - '3001'
+        - '3002'
+        - '2376'
     - role: docker_tls_files
       key_path: '/docker/key.pem'
       ca_path: '/docker/ca.pem'

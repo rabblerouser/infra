@@ -3,6 +3,16 @@ variable "route53_zone_id" {
   type = "string"
 }
 
+variable "vpc_id" {
+  description = "The ID of the VPC where the app should be deployed"
+  type = "string"
+}
+
+variable "vpc_subnet_ids" {
+  description = "The IDs of the subnets of the above VPC. One per AZ"
+  type = "list"
+}
+
 variable "tls_cert_email" {
   description = "The email under which to register the TLS cert. E.g. webmaster@rabblerouser.team"
   type = "string"

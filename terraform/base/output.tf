@@ -2,12 +2,20 @@ output "host_ip" {
   value = "${aws_instance.web.public_ip}"
 }
 
+output "aws_instance_id" {
+  value = "${aws_instance.web.id}"
+}
+
 output "alb_dns_name" {
   value = "${aws_lb.load_balancer.dns_name}"
 }
 
 output "alb_zone_id" {
   value = "${aws_lb.load_balancer.zone_id}"
+}
+
+output "alb_listener_arn" {
+  value = "${aws_lb_listener.alb_listener.arn}"
 }
 
 output "stream_arn" {

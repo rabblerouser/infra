@@ -21,10 +21,19 @@ provider "tls" {
   version = "~> 1.0.0"
 }
 
+# These data sources just look up certain AWS objects so we can reference them elsewhere
 data "aws_route53_zone" "parent_hosted_zone" {
   # Determine parent domain: split FQDN on '.', then drop the first element, then join on '.' again
   # This is pretty hairy, but it works, and it means *everything* can be configured from just `var.domain` alone!
   name = "${join(".", slice(split(".", var.domain), 1, length(split(".", var.domain))))}"
+}
+
+data "aws_vpc" "default_vpc" {
+  default = true
+}
+
+data "aws_subnet_ids" "default_vpc_subnets" {
+  vpc_id = "${data.aws_vpc.default_vpc.id}"
 }
 
 locals {
@@ -35,6 +44,8 @@ locals {
 module base {
   source = "./base"
   route53_zone_id = "${local.route53_zone_id}"
+  vpc_id = "${data.aws_vpc.default_vpc.id}"
+  vpc_subnet_ids = "${data.aws_subnet_ids.default_vpc_subnets.ids}"
   tls_cert_email = "${local.tls_cert_email}"
   ses_region = "${var.ses_region}"
   domain = "${var.domain}"
@@ -48,9 +59,12 @@ module apps {
   tls_cert_email = "${local.tls_cert_email}"
   private_key_path = "${var.private_key_path}"
 
+  vpc_id = "${data.aws_vpc.default_vpc.id}"
   host_ip = "${module.base.host_ip}"
+  aws_instance_id = "${module.base.aws_instance_id}"
   alb_dns_name = "${module.base.alb_dns_name}"
   alb_zone_id = "${module.base.alb_zone_id}"
+  alb_listener_arn = "${module.base.alb_listener_arn}"
   docker_api_key = "${module.base.docker_api_key}"
   docker_api_ca = "${module.base.docker_api_ca}"
   docker_api_cert = "${module.base.docker_api_cert}"

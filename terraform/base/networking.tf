@@ -11,15 +11,6 @@ resource "aws_route53_record" "bare_domain" {
   }
 }
 
-# The next two resources just look up the default VPC and its subnets, so we can reference them elsewhere
-data "aws_vpc" "default_vpc" {
-  default = true
-}
-
-data "aws_subnet_ids" "default_vpc_subnets" {
-  vpc_id = "${data.aws_vpc.default_vpc.id}"
-}
-
 resource "aws_security_group" "web" {
   name = "rabble_rouser_web"
   description = "Allow SSH, HTTP(S), and Docker in. Allow DNS and HTTP(S) out."
@@ -48,6 +39,48 @@ resource "aws_security_group" "web" {
   ingress {
     from_port = 2376
     to_port = 2376
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 3000
+    to_port = 3000
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 3001
+    to_port = 3001
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 3002
+    to_port = 3002
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 3000
+    to_port = 3000
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 3001
+    to_port = 3001
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 3002
+    to_port = 3002
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

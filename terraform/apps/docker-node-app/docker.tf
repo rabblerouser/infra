@@ -21,7 +21,6 @@ resource "docker_container" "app_container" {
   ports = {
     internal = "${var.port}"
     external = "${var.port}"
-    ip = "127.0.0.1"
   }
   env = ["${concat(
     list(
