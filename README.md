@@ -38,10 +38,8 @@ If you want to spin up a brand new deployment of Rabble Rouser, [go here](./docs
 ## About the `tf` script
 
 Throughout these docs, you are often told to run a special `tf` script, rather than running terraform directly. This is
-to work around some terraform limitations ([1](https://github.com/hashicorp/terraform/issues/10462),
-[2](https://github.com/hashicorp/terraform/issues/5190)), which currently make the native terraform commands a bit
-verbose. You can run the script with no arguments to see how to use it, or read [`the source code`](./terraform/tf) to
-see how it works:
+to work around a particular [terraform limitation](https://github.com/hashicorp/terraform/issues/2430). You can run the
+script with no arguments to see how to use it, or read [`the source code`](./terraform/tf) to see how it works:
 
 ```sh
 cd terraform

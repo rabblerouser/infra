@@ -29,5 +29,3 @@ resource "random_id" "session_secret" {
   }
   byte_length = 32
 }
-
-# NOTE: If you add more resources here, they need to be added to the $CORE variable in the tf shell script

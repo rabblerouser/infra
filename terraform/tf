@@ -32,9 +32,6 @@ function usage() {
 
 BASE="--target module.base"
 APPS="--target module.apps"
-CORE="--target module.apps.module.core_app --target module.apps.random_id.session_secret"
-MAILER="--target module.apps.module.mailer_app --target module.apps.aws_iam_user_policy.mailer_send_ses_email --target module.apps.aws_iam_user_policy.mailer_read_mail_bucket"
-GROUP_MAILER="--target module.apps.module.group_mailer_app --target module.apps.aws_iam_user_policy.group_mailer_read_mail_bucket"
 SEED="--target module.seeder"
 
 function run_terraform() {
@@ -44,41 +41,30 @@ function run_terraform() {
 
 case "$1 $2" in
   "plan ")
-    set -x
-    run_terraform plan
+  run_terraform plan "$BASE"
+  run_terraform plan "$APPS"
     ;;
   "plan base")
-    set -x
     run_terraform plan "$BASE"
     ;;
   "plan apps")
-    set -x
     run_terraform plan "$APPS"
     ;;
   "plan seeder")
-    set -x
     run_terraform plan "$SEED"
     ;;
 
   "apply ")
-    set -x
     run_terraform apply "$BASE"
-    run_terraform apply "$CORE"
-    run_terraform apply "$MAILER"
-    run_terraform apply "$GROUP_MAILER"
+    run_terraform apply "$APPS"
     ;;
   "apply base")
-    set -x
     run_terraform apply "$BASE"
     ;;
   "apply apps")
-    set -x
-    run_terraform apply "$CORE"
-    run_terraform apply "$MAILER"
-    run_terraform apply "$GROUP_MAILER"
+    run_terraform apply "$APPS"
     ;;
   "apply seeder")
-    set -x
     run_terraform apply "$SEED"
     ;;
   *)

@@ -66,5 +66,3 @@ resource "aws_iam_user_policy" "mailer_send_ses_email" {
 }
 EOF
 }
-
-# NOTE: If you add more resources here, they need to be added to the $MAILER variable in the tf shell script

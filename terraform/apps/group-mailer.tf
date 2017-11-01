@@ -48,5 +48,3 @@ resource "aws_iam_user_policy" "group_mailer_read_mail_bucket" {
 }
 EOF
 }
-
-# NOTE: If you add more resources here, they need to be added to the $GROUP_MAILER variable in the tf shell script
