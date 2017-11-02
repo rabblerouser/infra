@@ -31,7 +31,7 @@ resource "aws_lb_listener" "alb_listener" {
 
 resource "aws_lb_target_group" "alb_default_target_group" {
   name = "rr-alb-default-target-group"
-  port = "3000"
+  port = "${var.app_ports["core"]}"
   protocol = "HTTP"
   vpc_id = "${data.aws_vpc.default_vpc.id}"
 }

@@ -2,7 +2,7 @@ module "mailer_app" {
   source = "./docker-node-app"
   name = "mailer"
   docker_image = "rabblerouser/mailer"
-  port = "3001"
+  port = "${var.app_ports["mailer"]}"
   aws_instance_id = "${var.aws_instance_id}"
   alb_listener_arn = "${var.alb_listener_arn}"
   alb_listener_rule_priority = "2"

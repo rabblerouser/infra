@@ -2,7 +2,7 @@ module "core_app" {
   source = "./docker-node-app"
   name = "core"
   docker_image = "rabblerouser/core"
-  port = "3000"
+  port = "${var.app_ports["core"]}"
   aws_instance_id = "${var.aws_instance_id}"
   alb_listener_arn = "${var.alb_listener_arn}"
   alb_listener_rule_priority = "1"

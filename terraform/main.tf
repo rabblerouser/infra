@@ -30,6 +30,11 @@ data "aws_route53_zone" "parent_hosted_zone" {
 
 locals {
   route53_zone_id = "${data.aws_route53_zone.parent_hosted_zone.zone_id}"
+  app_ports = {
+    core = 3000
+    mailer = 3001
+    group_mailer = 3002
+  }
 }
 
 module base {
@@ -37,6 +42,7 @@ module base {
   route53_zone_id = "${local.route53_zone_id}"
   ses_region = "${var.ses_region}"
   domain = "${var.domain}"
+  app_ports = "${local.app_ports}"
   private_key_path = "${var.private_key_path}"
 }
 
@@ -45,6 +51,7 @@ module apps {
   domain = "${var.domain}"
   route53_zone_id = "${local.route53_zone_id}"
 
+  app_ports = "${local.app_ports}"
   aws_instance_id = "${module.base.aws_instance_id}"
   alb_listener_arn = "${module.base.alb_listener_arn}"
   docker_credentials = "${module.base.docker_credentials}"

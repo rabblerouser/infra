@@ -6,7 +6,7 @@
     rule: allow
     proto: tcp
     port: "{{ item }}"
-  with_items: "{{ allowed_ports }}"
+  with_items: "{{ open_ports }}"
 
 - name: enable ufw
   ufw: state=enabled policy=deny

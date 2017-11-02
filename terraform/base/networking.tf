@@ -14,95 +14,31 @@ resource "aws_route53_record" "bare_domain" {
 resource "aws_security_group" "web" {
   name = "rabble_rouser_web"
   description = "Allow SSH, HTTP(S), and Docker in. Allow DNS and HTTP(S) out."
+}
 
-  ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+locals {
+  ingress_ports = "${concat(values(var.app_ports), list("22", "80", "443", "2376"))}"
+  egress_ports = "${concat(values(var.app_ports), list("53", "80", "443"))}"
+}
 
-  ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "ingress_rules" {
+  count = "${length(local.ingress_ports)}"
+  security_group_id = "${aws_security_group.web.id}"
 
-  ingress {
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  type = "ingress"
+  from_port = "${element(local.ingress_ports, count.index)}"
+  to_port = "${element(local.ingress_ports, count.index)}"
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
 
-  ingress {
-    from_port = 2376
-    to_port = 2376
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_security_group_rule" "egress_rules" {
+  count = "${length(local.egress_ports)}"
+  security_group_id = "${aws_security_group.web.id}"
 
-  ingress {
-    from_port = 3000
-    to_port = 3000
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port = 3001
-    to_port = 3001
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port = 3002
-    to_port = 3002
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port = 3000
-    to_port = 3000
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port = 3001
-    to_port = 3001
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port = 3002
-    to_port = 3002
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port = 53
-    to_port = 53
-    protocol = "udp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port = 443
-    to_port = 443
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  type = "egress"
+  from_port = "${element(local.egress_ports, count.index)}"
+  to_port = "${element(local.egress_ports, count.index)}"
+  protocol = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
 }

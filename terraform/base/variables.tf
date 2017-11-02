@@ -8,6 +8,11 @@ variable "domain" {
   type = "string"
 }
 
+variable "app_ports" {
+  description = "A map of ports, specified as app_name => port_number"
+  type = "map"
+}
+
 variable "private_key_path" {
   description = "Private key to be used for ansible provisioning"
   type = "string"

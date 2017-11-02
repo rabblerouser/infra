@@ -8,6 +8,11 @@ variable "route53_zone_id" {
   type = "string"
 }
 
+variable "app_ports" {
+  description = "A map of ports, specified as app_name => port_number"
+  type = "map"
+}
+
 variable "aws_instance_id" {
   description = "The ID of the EC2 instance where this app should be deployed"
   type = "string"
