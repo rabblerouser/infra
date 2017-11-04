@@ -6,7 +6,10 @@ data "aws_vpc" "default_vpc" {
 }
 
 data "aws_instance" "instance" {
-  instance_id = "${var.aws_instance_id}"
+  filter {
+    name = "ip-address"
+    values = ["${var.aws_instance_ip}"]
+  }
 }
 
 data "aws_lb_listener" "alb_listener" {

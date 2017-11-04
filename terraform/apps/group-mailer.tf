@@ -3,7 +3,7 @@ module "group_mailer_app" {
   name = "group-mailer"
   docker_image = "rabblerouser/group-mailer"
   port = "${var.app_ports["group_mailer"]}"
-  aws_instance_id = "${var.aws_instance_id}"
+  aws_instance_ip = "${var.aws_instance_ip}"
   alb_listener_arn = "${var.alb_listener_arn}"
   alb_listener_rule_priority = "3"
   docker_credentials = "${var.docker_credentials}"

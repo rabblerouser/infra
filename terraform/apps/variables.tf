@@ -13,8 +13,8 @@ variable "app_ports" {
   type = "map"
 }
 
-variable "aws_instance_id" {
-  description = "The ID of the EC2 instance where this app should be deployed"
+variable "aws_instance_ip" {
+  description = "The public IP address of the EC2 instance where this app should be deployed"
   type = "string"
 }
 

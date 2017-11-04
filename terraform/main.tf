@@ -55,7 +55,7 @@ module apps {
   route53_zone_id = "${local.route53_zone_id}"
 
   app_ports = "${local.app_ports}"
-  aws_instance_id = "${module.base.aws_instance_id}"
+  aws_instance_ip = "${module.base.aws_instance_ip}"
   alb_listener_arn = "${module.base.alb_listener_arn}"
   docker_credentials = "${module.base.docker_credentials}"
   stream_name = "${module.base.stream_name}"

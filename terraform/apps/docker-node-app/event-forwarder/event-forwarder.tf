@@ -18,7 +18,7 @@ data "aws_s3_bucket_object" "event_forwarder_zip" {
 
 resource "random_id" "auth_token" {
   keepers = {
-    # Generate a new token when the lambda code updates or the EC2 instance changes
+    # Generate a new token when the lambda code updates
     lambda_zip_version = "${data.aws_s3_bucket_object.event_forwarder_zip.version_id}"
   }
 

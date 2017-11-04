@@ -3,7 +3,7 @@ module "core_app" {
   name = "core"
   docker_image = "rabblerouser/core"
   port = "${var.app_ports["core"]}"
-  aws_instance_id = "${var.aws_instance_id}"
+  aws_instance_ip = "${var.aws_instance_ip}"
   alb_listener_arn = "${var.alb_listener_arn}"
   alb_listener_rule_priority = "1"
   docker_credentials = "${var.docker_credentials}"
@@ -14,10 +14,17 @@ module "core_app" {
   env = ["SESSION_SECRET=${random_id.session_secret.hex}"]
 }
 
+data "aws_instance" "instance" {
+  filter {
+    name = "ip-address"
+    values = ["${var.aws_instance_ip}"]
+  }
+}
+
 resource "random_id" "session_secret" {
   keepers = {
     # Generate a new session secret when instance ID changes
-    ec2_instance_id = "${var.aws_instance_id}"
+    ec2_instance_id = "${data.aws_instance.instance.id}"
   }
   byte_length = 32
 }

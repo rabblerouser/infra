@@ -2,8 +2,8 @@ output "host_ip" {
   value = "${aws_instance.web.public_ip}"
 }
 
-output "aws_instance_id" {
-  value = "${aws_instance.web.id}"
+output "aws_instance_ip" {
+  value = "${aws_instance.web.public_ip}"
 }
 
 output "alb_listener_arn" {
