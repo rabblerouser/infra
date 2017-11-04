@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -o pipefail
 
 if [[ -z `which terraform` ]]; then
   echo 'Error: Install terraform before running this script'
@@ -34,33 +35,36 @@ BASE="--target module.base"
 APPS="--target module.apps"
 SEED="--target module.seeder"
 
+function run_terraform() {
+  # The sed command is to hide RSA keys/certs from stdout
+  eval terraform $@ | sed '/-----BEGIN/,/-----END/d'
+}
+
 case "$1 $2" in
   "plan ")
-  eval terraform plan "$BASE"
-  eval terraform plan "$APPS"
+  run_terraform plan "$BASE" "$APPS"
     ;;
   "plan base")
-    eval terraform plan "$BASE"
+    run_terraform plan "$BASE"
     ;;
   "plan apps")
-    eval terraform plan "$APPS"
+    run_terraform plan "$APPS"
     ;;
   "plan seeder")
-    eval terraform plan "$SEED"
+    run_terraform plan "$SEED"
     ;;
 
   "apply ")
-    eval terraform apply "$BASE"
-    eval terraform apply "$APPS"
+    run_terraform apply "$BASE" "$APPS"
     ;;
   "apply base")
-    eval terraform apply "$BASE"
+    run_terraform apply "$BASE"
     ;;
   "apply apps")
-    eval terraform apply "$APPS"
+    run_terraform apply "$APPS"
     ;;
   "apply seeder")
-    eval terraform apply "$SEED"
+    run_terraform apply "$SEED"
     ;;
   *)
     usage
