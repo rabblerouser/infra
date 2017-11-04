@@ -11,7 +11,7 @@ resource "aws_lb" "load_balancer" {
   name = "rabblerouser-alb"
   internal = false
   load_balancer_type = "application"
-  security_groups = ["${aws_security_group.web.id}"]
+  security_groups = ["${aws_security_group.alb_security_group.id}"]
 
   subnets = ["${data.aws_subnet_ids.default_vpc_subnets.ids}"]
 }
