@@ -10,16 +10,6 @@ and find their logs in Cloudwatch.
 
 Here are some common problems, and how to approach fixing them.
 
-### Terraform wants to recreate some keys?
-
-You might sometimes see terraform want to recreate the resource `aws_key_pair.ansible`, and modify some other resources
-that depend on it. It's usually safe to just let it do this.
-
-The key pair in question is the SSH keys used to get access to the EC2 instance for running ansible and configuring the
-server. Currently we don't generate the keys dynamically - instead we rely on the SSH keys configured on your machine.
-Because each person has their own SSH keys (hopefully!), if you were not the last person to run `terraform apply` on the
-given infrastructure, then terraform will need to update the keys.
-
 ### Ansible fails with an 'UNREACHABLE' error
 
 This might be because the server's IP address or fingerprint has change since last time you accessed it via SSH. This is

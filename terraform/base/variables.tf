@@ -13,16 +13,6 @@ variable "app_ports" {
   type = "map"
 }
 
-variable "private_key_path" {
-  description = "Private key to be used for ansible provisioning"
-  type = "string"
-}
-
-variable "public_key_path" {
-  description = "Public key to be used for ansible provisioning"
-  default = "~/.ssh/id_rsa.pub"
-}
-
 variable "region" {
   description = "The AWS region to create all the infrastructure in"
   default = "ap-southeast-2"

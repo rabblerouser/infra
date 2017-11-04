@@ -3,16 +3,6 @@ variable "domain" {
   type = "string"
 }
 
-variable "private_key_path" {
-  description = "Private key to be used for ansible provisioning"
-  default = "~/.ssh/id_rsa"
-}
-
-variable "public_key_path" {
-  description = "Public key to be used for ansible provisioning"
-  default = "~/.ssh/id_rsa.pub"
-}
-
 variable "region" {
   description = "The AWS region to create all the infrastructure in"
   default = "ap-southeast-2"

@@ -21,6 +21,10 @@ provider "tls" {
   version = "~> 1.0.0"
 }
 
+provider "local" {
+  version = "~> 1.0.0"
+}
+
 # These data sources just look up certain AWS objects so we can reference them elsewhere
 data "aws_route53_zone" "parent_hosted_zone" {
   # Determine parent domain: split FQDN on '.', then drop the first element, then join on '.' again
@@ -43,7 +47,6 @@ module base {
   ses_region = "${var.ses_region}"
   domain = "${var.domain}"
   app_ports = "${local.app_ports}"
-  private_key_path = "${var.private_key_path}"
 }
 
 module apps {

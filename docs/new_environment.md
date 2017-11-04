@@ -70,10 +70,6 @@ terraform init
 It will ask you for the bucket name and region that you supplied earlier. It will also ask for an object key (i.e. a
 file name); you can call it `terraform.tfstate`.
 
-## Create an SSH key pair
-If you work with git, you likely have an SSH key pair set up already, otherwise you'll need to create a new pair. In
-either case, make sure they're in the usual locations: `~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub`.
-
 ## Configure your environment
 There is only a single variable that you have to configure up-front: the domain that you're deploying Rabble Rouser into.
 Recall from earlier that your choice here is limited to choosing a subdomain of a hosted zone that you have already

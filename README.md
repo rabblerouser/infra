@@ -68,15 +68,15 @@ dockerx logs -f group-mailer
 
 ## SSH Access
 
-If the EC2 instance exists and your SSH public key is on it, you can use this helper script:
+To get direct access to the EC2 instance, you can use this helper script:
 
 ```sh
 cd terraform
 ./ssh.sh
 ```
 
-Unfortunately this only works if you were the last person to run the provisioner, otherwise someone else's public key
-will have overwritten yours. We intend to remove this limitation in the future.
+Note that you must have previously run `./tf apply` at least once for this to work, otherwise the required SSH key will
+not be present.
 
 ## Troubleshooting
 

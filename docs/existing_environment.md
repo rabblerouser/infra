@@ -43,11 +43,6 @@ terraform init
 #region: ap-southeast-2
 ```
 
-## Create an SSH key pair
-
-If you work with git, you likely have an SSH key pair set up already, otherwise you'll need to create a new pair. In
-either case, make sure they're in the usual locations: `~/.ssh/id_rsa` and `~/.ssh/id_rsa.pub`.
-
 ## Run terraform
 
 Let's start by checking if the deployed infrastructure is up to date with the infra code:
@@ -56,8 +51,8 @@ Let's start by checking if the deployed infrastructure is up to date with the in
 ./tf plan
 ```
 
-Ideally it should say that there is nothing to do. If it wants to make changes, you might be having [this problem](./troubleshooting.md#terraform-wants-to-recreate-some-keys).
-If you're unsure, reach out to the team for help.
+Ideally it should say that there is nothing to do. If it wants to make changes and you're not sure why, reach out to the
+team for help.
 
 Once you've made some changes and you want to apply them, run this:
 
