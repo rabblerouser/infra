@@ -57,6 +57,7 @@ a `dockerx` alias that's configured to run against the remote docker daemon:
 
 ```sh
 cd terraform
+bash # See note below
 source enable-remote-docker.sh
 ```
 
@@ -64,6 +65,17 @@ Now you can use the alias to do things like watch the logs for a particular app:
 
 ```sh
 dockerx logs -f group-mailer
+```
+
+Note that we start a new sub-shell before running the script. For some reason, if the script fails, it has a tendency
+to crash the whole shell, which is really annoying. By running it in a sub-shell, if it crashes, it will at least just
+crash back to the outer shell and no further.
+
+If it does crash or hang, it might be because some cached data has gotten out of date. Clean it up and then try again:
+
+```sh
+rm .tf_remote_files/docker-*
+rm .tf_remote_files/server-ip
 ```
 
 ## SSH Access

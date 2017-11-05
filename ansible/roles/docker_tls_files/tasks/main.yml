@@ -12,6 +12,7 @@
     group: root
     mode: 0600
     content: "{{ key }}"
+  notify: "restart docker"
 
 - name: Docker API TLS CA cert
   copy:
@@ -20,6 +21,7 @@
     group: root
     mode: 0600
     content: "{{ ca }}"
+  notify: "restart docker"
 
 - name: Docker API TLS cert
   copy:
@@ -28,3 +30,4 @@
     group: root
     mode: 0600
     content: "{{ cert }}"
+  notify: "restart docker"

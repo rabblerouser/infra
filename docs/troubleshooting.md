@@ -47,10 +47,3 @@ been seeded with initial data yet. See [here](./new_environment.md#seed-the-app)
 This is often caused by the same issue as signups not working (see above). Or perhaps you're just getting the credentials
 wrong. Check the seed script in the `rabblerouser/core` codebase to see what the initial credentials are. Or try asking
 around the team to make sure no one has changed them.
-
-### Docker auth fails because IP addresses don't match
-When running something related to Docker, if you see an x509 error where a certificate is only valid for IP addres 'X',
-and not 'Y', then it probably means the server's IP address has changed and the Docker auth certificate needs to be
-updated. Terraform should generate and upload the new certs automatically, but you may need to SSH onto the server and
-manually restart the docker daemon. Ideally ansible should automatically restart Docker when the cert gets updated, but
-at the moment it doesn't.

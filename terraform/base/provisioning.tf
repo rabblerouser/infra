@@ -22,7 +22,7 @@ locals {
   firewall_ports = "${concat(values(var.app_ports), local.instance_global_ingress)}"
 }
 
-resource "null_resource" "base_provisioner" {
+resource "null_resource" "provisioner" {
   depends_on = ["null_resource.chmod_private_key_file"]
   triggers {
     # Re-provision when these values change

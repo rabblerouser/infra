@@ -1,0 +1,9 @@
+- name: Check if Docker service exists
+  stat: path=/etc/init.d/docker
+  listen: restart docker
+  register: service_status
+
+- name: Restart Docker
+  service: name=docker state=restarted
+  listen: restart docker
+  when: service_status.stat.exists
