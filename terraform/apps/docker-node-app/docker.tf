@@ -22,6 +22,7 @@ resource "docker_container" "app_container" {
     internal = "${var.port}"
     external = "${var.port}"
   }
+  restart = "always"
   env = ["${concat(
     list(
       "PORT=${var.port}",
