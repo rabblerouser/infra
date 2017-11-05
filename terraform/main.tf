@@ -61,7 +61,6 @@ module apps {
   stream_name = "${module.base.stream_name}"
   archive_bucket_name = "${module.base.archive_bucket_name}"
   ses_region = "${var.ses_region}"
-  mail_bucket_arn = "${module.base.mail_bucket_arn}"
   mail_bucket_name = "${module.base.mail_bucket_name}"
   group_mail_receiver_auth_token = "${module.base.group_mail_receiver_auth_token}"
 }

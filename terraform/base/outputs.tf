@@ -18,10 +18,6 @@ output "archive_bucket_name" {
   value = "${aws_s3_bucket.event_archive_bucket.bucket}"
 }
 
-output "mail_bucket_arn" {
-  value = "${module.group_mail_receiver.mail_bucket_arn}"
-}
-
 output "mail_bucket_name" {
   value = "${module.group_mail_receiver.mail_bucket_name}"
 }

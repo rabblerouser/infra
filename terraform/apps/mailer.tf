@@ -17,6 +17,10 @@ module "mailer_app" {
   ]
 }
 
+data "aws_s3_bucket" "mail_bucket" {
+  bucket = "${var.mail_bucket_name}"
+}
+
 resource "aws_iam_user_policy" "mailer_read_mail_bucket" {
   name = "mailer_read_mail_bucket"
   user =  "${module.mailer_app.aws_user_name}"
@@ -27,14 +31,14 @@ resource "aws_iam_user_policy" "mailer_read_mail_bucket" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": "${var.mail_bucket_arn}"
+      "Resource": "${data.aws_s3_bucket.mail_bucket.arn}"
     },
     {
       "Effect": "Allow",
       "Action": [
         "s3:GetObject"
       ],
-      "Resource": "${var.mail_bucket_arn}/*"
+      "Resource": "${data.aws_s3_bucket.mail_bucket.arn}/*"
     }
   ]
 }
