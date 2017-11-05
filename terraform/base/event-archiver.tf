@@ -29,6 +29,10 @@ resource "aws_s3_bucket" "event_archive_bucket" {
   bucket = "${var.domain}-event-archive"
   acl = "private"
   region = "${var.region}"
+
+  versioning {
+    enabled = true
+  }
 }
 
 resource "aws_iam_role" "event_archiver_role" {
