@@ -123,7 +123,7 @@ Before the application can be useful, the database needs some seed data. This is
 
 ## Check it works
 
-Open up the app in your browser (at the domain you specified), and try to sign up a new member. Then go to the
+Open up the app in your browser (at the domain you specified, **with HTTPS**), and try to sign up a new member. Then go to the
 `/dashboard` page and log in with these credentials:
 
 - Email: `superadmin@rabblerouser.team`
