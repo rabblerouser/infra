@@ -13,8 +13,8 @@ if [[ -z `which aws` ]]; then
   exit 1
 fi
 
-if [[ -z `terraform version | grep v0.10` ]]; then
-  echo 'Error: This script should only be run with terraform v0.10'
+if [[ -z `terraform version | grep v0.11` ]]; then
+  echo 'Error: This script should only be run with terraform v0.11'
   exit 1
 fi
 
@@ -36,8 +36,12 @@ APPS="--target module.apps"
 SEED="--target module.seeder"
 
 function run_terraform() {
-  # The sed command is to hide RSA keys/certs from stdout
-  eval terraform $@ | sed '/-----BEGIN/,/-----END/d'
+  # We pipe the terraform output through a couple of commands to hide sensitive SSL certificates
+  # The grep removes certs that are contained on a single line
+  # The sed removes certs that are spread across multiple lines
+  # TODO: Add the filtering back in. It causes problems now that `terraform apply` is interactive by default
+  # eval terraform $@ | grep -ve '-----BEGIN.*-----END' | sed '/-----BEGIN/,/-----END/d'
+  eval terraform $@
 }
 
 case "$1 $2" in
