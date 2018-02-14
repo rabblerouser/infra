@@ -95,20 +95,18 @@ file [`terraform/variables.tf`](../terraform/variables.tf), which can all be ove
 
 ## Create the base infrastructure
 
-Before you can deploy an application, you need to create the base infrastructure. Start with a dry run, and then if
-you're happy, create everything! *Note that this will cost you money, even if you have the AWS free tier*:
+Before you can deploy an application, you need to create the base infrastructure. *Note that this will cost you money,
+even if you have the AWS free tier*:
 
 ```sh
-./tf plan base
 ./tf apply base
 ```
 
 ## Deploy the apps
 
-Again, do a dry run, and then run it for real:
+Next we can deploy the applications onto the infrastructure:
 
 ```sh
-./tf plan apps
 ./tf apply apps
 ```
 
@@ -117,7 +115,6 @@ Again, do a dry run, and then run it for real:
 Before the application can be useful, the database needs some seed data. This is also done via terraform:
 
 ```sh
-./tf plan seeder
 ./tf apply seeder
 ```
 
