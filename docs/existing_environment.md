@@ -33,14 +33,14 @@ terraform get
 
 ## Configure terraform remote state
 
-The current state of the infrastructure is stored in an S3 bucket. You need to tell terraform where it is (enter the given
-config values when prompted):
+The current state of the infrastructure is stored in an S3 bucket. You need to tell terraform where it is:
 
 ```sh
-terraform init
-#bucket: rr-staging.click-tf-state
-#key: terraform.tfstate
-#region: ap-southeast-2
+# Adjust the config if you're not trying to work on the RR team's staging environment
+terraform init \
+  --backend-config='bucket=rr-staging.click-tf-state' \
+  --backend-config='key=terraform.tfstate' \
+  --backend-config='region=ap-southeast-2'
 ```
 
 ## Run terraform
