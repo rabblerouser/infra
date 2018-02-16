@@ -22,7 +22,7 @@ resource "docker_image" "seeder_image" {
 resource "docker_container" "seeder_container" {
   name = "seeder"
   image = "${docker_image.seeder_image.latest}"
-  command = ["npm", "run", "--prefix", "backend", "seed"]
+  command = ["yarn", "--cwd", "backend", "seed"]
   restart = "no"
   env = [
     "AWS_ACCESS_KEY_ID=${aws_iam_access_key.seeder_aws_key.id}",
