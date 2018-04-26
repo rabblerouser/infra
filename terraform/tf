@@ -1,4 +1,10 @@
 #! /bin/bash
+# terraform/tf
+# Run the Terraform command with correct dependency order for providers.
+#
+# This wrapper script works around a Terraform issue
+# <URL:https://github.com/hashicorp/terraform/issues/2430> (unresolved
+# as of 2017-07-25).
 
 set -e
 set -o pipefail

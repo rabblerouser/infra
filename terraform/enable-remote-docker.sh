@@ -1,3 +1,6 @@
+# terraform/enable-remote-docker.sh
+# Script to enable a remote Docker API, via a command ‘dockerx’.
+
 set -e
 
 function echo_done() {
