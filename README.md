@@ -83,8 +83,7 @@ rm .tf_remote_files/server-ip
 To get direct access to the EC2 instance, you can use this helper script:
 
 ```sh
-cd terraform
-./ssh.sh
+(cd terraform && ./ssh-to-host)
 ```
 
 Note that you must have previously run `./tf apply` at least once for this to work, otherwise the required SSH key will
