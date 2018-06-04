@@ -7,7 +7,7 @@ Code for spinning up Rabble Rouser infrastructure and deploying applications.
 Before you get started, you'll need to install a couple of dependencies first:
 
 0. [Homebrew 1.3.6](https://brew.sh/) (Not strictly required for Rabblerouser, but it makes installing the toolchain a whole lot easier.)
-1. [Terraform 0.10.x](https://www.terraform.io/intro/getting-started/install.html) (For MacOS it's just: `brew install terraform`)
+1. [Terraform 0.11.x](https://www.terraform.io/intro/getting-started/install.html) (For MacOS it's just: `brew install terraform`)
 2. [Install the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/installing.html) (For MacOS it's just: `brew install awscli`)
 3. [Ansible 2.4.1.0](http://docs.ansible.com/ansible/latest/intro_installation.html) (For MacOS it's just: `brew install ansible`)
 4. [ACME plugin for Terraform](https://github.com/paybyphone/terraform-provider-acme)
