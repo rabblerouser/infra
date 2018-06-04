@@ -4,9 +4,14 @@ terraform {
   }
 }
 
+locals {
+  region = "ap-southeast-2"
+  ses_region = "us-east-1"
+}
+
 provider "aws" {
   version = "~> 1.1.0"
-  region = "${var.region}"
+  region = "${local.region}"
 }
 
 provider "null" {
@@ -44,7 +49,7 @@ locals {
 module base {
   source = "./base"
   route53_zone_id = "${local.route53_zone_id}"
-  ses_region = "${var.ses_region}"
+  ses_region = "${local.ses_region}"
   domain = "${var.domain}"
   app_ports = "${local.app_ports}"
 }
@@ -60,7 +65,7 @@ module apps {
   docker_credentials = "${module.base.docker_credentials}"
   stream_name = "${module.base.stream_name}"
   archive_bucket_name = "${module.base.archive_bucket_name}"
-  ses_region = "${var.ses_region}"
+  ses_region = "${local.ses_region}"
   mail_bucket_name = "${module.base.mail_bucket_name}"
   group_mail_receiver_auth_token = "${module.base.group_mail_receiver_auth_token}"
 }
