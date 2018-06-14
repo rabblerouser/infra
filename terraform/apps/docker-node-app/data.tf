@@ -22,7 +22,7 @@ data "aws_lb" "alb" {
 }
 
 data "aws_kinesis_stream" "stream" {
-  name = "${var.stream_name}"
+  name = "${replace(var.parent_domain_name, ".", "-")}-stream"
 }
 
 data "aws_s3_bucket" "archive_bucket" {

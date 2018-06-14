@@ -6,10 +6,6 @@ output "aws_instance_ip" {
   value = "${aws_instance.web.public_ip}"
 }
 
-output "stream_name" {
-  value = "${aws_kinesis_stream.rabblerouser_stream.name}"
-}
-
 output "archive_bucket_name" {
   value = "${aws_s3_bucket.event_archive_bucket.bucket}"
 }

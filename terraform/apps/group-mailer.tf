@@ -8,7 +8,6 @@ module "group_mailer_app" {
   docker_credentials = "${var.docker_credentials}"
   parent_domain_name = "${var.domain}"
   route53_parent_zone_id = "${var.route53_zone_id}"
-  stream_name = "${var.stream_name}"
   archive_bucket_name = "${var.archive_bucket_name}"
   env = [
     "S3_EMAILS_BUCKET=${var.mail_bucket_name}",

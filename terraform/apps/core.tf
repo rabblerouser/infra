@@ -8,7 +8,6 @@ module "core_app" {
   docker_credentials = "${var.docker_credentials}"
   parent_domain_name = "${var.domain}"
   route53_parent_zone_id = "${var.route53_zone_id}"
-  stream_name = "${var.stream_name}"
   archive_bucket_name = "${var.archive_bucket_name}"
   env = ["SESSION_SECRET=${random_id.session_secret.hex}"]
 }

@@ -62,7 +62,6 @@ module apps {
   app_ports = "${local.app_ports}"
   aws_instance_ip = "${module.base.aws_instance_ip}"
   docker_credentials = "${module.base.docker_credentials}"
-  stream_name = "${module.base.stream_name}"
   archive_bucket_name = "${module.base.archive_bucket_name}"
   ses_region = "${local.ses_region}"
   mail_bucket_name = "${module.base.mail_bucket_name}"
@@ -71,7 +70,7 @@ module apps {
 
 module seeder {
   source = "./seeder"
+  domain = "${var.domain}"
   host_ip = "${module.base.host_ip}"
   docker_credentials = "${module.base.docker_credentials}"
-  stream_name = "${module.base.stream_name}"
 }

@@ -23,11 +23,6 @@ variable "docker_credentials" {
   type = "map"
 }
 
-variable "stream_name" {
-  description = "The name of the kinesis event stream"
-  type = "string"
-}
-
 variable "archive_bucket_name" {
   description = "The name of the event archive bucket"
   type = "string"

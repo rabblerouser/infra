@@ -7,7 +7,7 @@ provider "docker" {
 }
 
 data "aws_kinesis_stream" "stream" {
-  name = "${var.stream_name}"
+  name = "${replace(var.domain, ".", "-")}-stream"
 }
 
 data "docker_registry_image" "seeder_image" {
@@ -27,7 +27,7 @@ resource "docker_container" "seeder_container" {
   env = [
     "AWS_ACCESS_KEY_ID=${aws_iam_access_key.seeder_aws_key.id}",
     "AWS_SECRET_ACCESS_KEY=${aws_iam_access_key.seeder_aws_key.secret}",
-    "STREAM_NAME=${var.stream_name}",
+    "STREAM_NAME=${data.aws_kinesis_stream.stream.name}",
   ]
   depends_on = ["aws_iam_user_policy.seeder_put_to_stream"]
 }
