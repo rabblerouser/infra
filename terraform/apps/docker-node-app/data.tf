@@ -13,11 +13,12 @@ data "aws_instance" "instance" {
 }
 
 data "aws_lb_listener" "alb_listener" {
-  arn = "${var.alb_listener_arn}"
+  load_balancer_arn = "${data.aws_lb.alb.arn}"
+  port = 443
 }
 
 data "aws_lb" "alb" {
-  arn = "${data.aws_lb_listener.alb_listener.load_balancer_arn}"
+  name = "${replace(var.parent_domain_name, ".", "-")}-alb"
 }
 
 data "aws_kinesis_stream" "stream" {

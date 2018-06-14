@@ -8,7 +8,8 @@ data "aws_subnet_ids" "default_vpc_subnets" {
 }
 
 resource "aws_lb" "load_balancer" {
-  name = "rabblerouser-alb"
+  # Don't change this name - the apps use it to look up the ALB and attach themselves
+  name = "${replace(var.domain, ".", "-")}-alb"
   internal = false
   load_balancer_type = "application"
   security_groups = ["${aws_security_group.alb_security_group.id}"]

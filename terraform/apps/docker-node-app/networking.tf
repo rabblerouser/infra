@@ -12,7 +12,7 @@ resource "aws_route53_record" "app_domain" {
 }
 
 resource "aws_lb_listener_rule" "alb_listener_rule" {
-  listener_arn = "${var.alb_listener_arn}"
+  listener_arn = "${data.aws_lb_listener.alb_listener.arn}"
   priority = "${var.alb_listener_rule_priority}"
 
   action {

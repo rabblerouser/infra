@@ -4,7 +4,6 @@ module "mailer_app" {
   docker_image = "rabblerouser/mailer"
   port = "${var.app_ports["mailer"]}"
   aws_instance_ip = "${var.aws_instance_ip}"
-  alb_listener_arn = "${var.alb_listener_arn}"
   alb_listener_rule_priority = "2"
   docker_credentials = "${var.docker_credentials}"
   parent_domain_name = "${var.domain}"

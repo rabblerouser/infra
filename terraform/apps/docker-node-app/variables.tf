@@ -24,11 +24,6 @@ variable "aws_instance_ip" {
   type = "string"
 }
 
-variable "alb_listener_arn" {
-  description = "The ARN of the ALB listener that should route traffic to the app"
-  type = "string"
-}
-
 variable "alb_listener_rule_priority" {
   description = "The priority of this app's ALB listener rule"
   type = "string"

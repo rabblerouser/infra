@@ -10,7 +10,7 @@ locals {
 }
 
 provider "aws" {
-  version = "~> 1.1.0"
+  version = "~> 1.23.0"
   region = "${local.region}"
 }
 
@@ -61,7 +61,6 @@ module apps {
 
   app_ports = "${local.app_ports}"
   aws_instance_ip = "${module.base.aws_instance_ip}"
-  alb_listener_arn = "${module.base.alb_listener_arn}"
   docker_credentials = "${module.base.docker_credentials}"
   stream_name = "${module.base.stream_name}"
   archive_bucket_name = "${module.base.archive_bucket_name}"

@@ -18,11 +18,6 @@ variable "aws_instance_ip" {
   type = "string"
 }
 
-variable "alb_listener_arn" {
-  description = "The ARN of the ALB listener"
-  type = "string"
-}
-
 variable "docker_credentials" {
   description = "The key, ca, and cert PEMs used to authenticate with the remote Docker daemon"
   type = "map"
