@@ -5,4 +5,5 @@ module "redirector" {
 
   region = "${var.region}"
   domain = "${var.domain}"
+  api_gateway_stage_name = "${var.api_gateway_stage_name}"
 }
