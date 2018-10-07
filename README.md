@@ -15,16 +15,21 @@ Before you get started, you'll need to install a couple of dependencies first:
     This one you need to download and extract manually:
 
     ```sh
-    # 1. Make sure plugin directory exists:
-    mkdir -p ~/.terraform.d/plugins
-    pushd ~/.terraform.d/plugins
-    # 2a. Download for Mac
-    wget -O acme-provider-v0.4.0.zip https://github.com/paybyphone/terraform-provider-acme/releases/download/v0.4.0/terraform-provider-acme_v0.4.0_darwin_amd64.zip
-    # 2b. Download for Linux
-    #wget -O acme-provider-v0.4.0.zip https://github.com/paybyphone/terraform-provider-acme/releases/download/v0.4.0/terraform-provider-acme_v0.4.0_linux_amd64.zip
-    # 3. Unzip plugin:
-    unzip acme-provider-v0.4.0.zip
-    popd
+    # Create the Terraform plug-in directory.
+    mkdir -p ~/.terraform.d/plugins/
+
+    # Download the latest release of the ACME plug-in.
+    # Visit <URL:https://github.com/vancluever/terraform-provider-acme/releases/latest>
+    # to find the latest built release for your platform.
+    wget -O /tmp/terraform-provider-acme.zip \
+        https://github.com/vancluever/terraform-provider-acme/releases/download/v0.5.0/terraform-provider-acme_v0.5.0_darwin_amd64.zip
+
+    # Extract the downloaded archive to the Terraform plug-in directory.
+    unzip -d ~/.terraform.d/plugins/ /tmp/terraform-provider-acme.zip
+
+    # Confirm the ACME provider is installed.
+    # (This will not work until after the Terraform configuration is initialised.)
+    (cd terraform/ && terraform providers)
     ```
 
 ## Working with an existing environment
