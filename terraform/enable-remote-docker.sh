@@ -1,4 +1,5 @@
-#!/bin/bash
+# terraform/enable-remote-docker.sh
+# Script to enable a remote Docker API, via a command ‘dockerx’.
 
 set -e
 
@@ -46,3 +47,11 @@ echo 'You can now execute docker commands against the remote API using `dockerx`
 echo -e '    \033[1mdockerx ps\033[0m'
 echo -e '    \033[1mdockerx logs -f group-mailer\033[0m'
 echo -e '    \033[1mdockerx restart core\033[0m'
+
+
+# Local variables:
+# coding: utf-8
+# mode: shell-script
+# sh-shell: bash
+# End:
+# vim: fileencoding=utf-8 filetype=bash :
